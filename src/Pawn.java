@@ -3,10 +3,33 @@ import java.util.Objects;
 
 public class Pawn extends Piece {
 
+    private ArrayList<int[]> captureDirections;
+
 
     public Pawn(String initName, String initColour, int[] initCurrentSquare, int[] initPreviousSquare, ArrayList<int[]> initAvailableSquares) {
         super(initName, initColour, initCurrentSquare, initPreviousSquare, initAvailableSquares);
+        captureDirections = new ArrayList<>();
 
+        if (colour.equals("White")) { // check if pawn on edges
+            if (currentSquare[1] == 0) {
+                captureDirections.add(new int[]{5, 1});
+            } else if (currentSquare[1] == 7) {
+                captureDirections.add(new int[]{5, 6});
+            } else {
+                captureDirections.add(new int[]{5, currentSquare[1] + 1});
+                captureDirections.add(new int[]{5, currentSquare[1] - 1});
+            }
+        } else {
+            if (currentSquare[1] == 0) {
+                captureDirections.add(new int[]{2, 1});
+            } else if (currentSquare[1] == 7) {
+                captureDirections.add(new int[]{2, 6});
+            } else {
+                captureDirections.add(new int[]{2, currentSquare[1] + 1});
+                captureDirections.add(new int[]{2, currentSquare[1] - 1});
+            }
+
+        }
     }
 
     public void refresh(Game game) {
@@ -25,7 +48,7 @@ public class Pawn extends Piece {
                 }
             }
 
-            // next we do captures
+            // next we do captures (also add to captureDirections ArrayList)
 
             if (currentSquare[1] == 0) {
                 if (game.hasBlackPiece(new int[]{currentSquare[0] - 1, 1})) { // (towards h file)
@@ -182,4 +205,13 @@ public class Pawn extends Piece {
         }
         return null;
     }
+
+
+    public ArrayList<int[]> getCaptureDirections(){
+        return captureDirections;
+    }
+
+
+
+
 }

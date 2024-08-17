@@ -26,6 +26,7 @@ public class King extends Piece{
     public void refresh(){
         availableSquares.clear();
 
+        // check in queen directions to pin my own pieces (looking for bishop or queen on diagonal and rook or queen on straight files)
 
 
         if (colour.equals("White")){

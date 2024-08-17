@@ -66,12 +66,19 @@ public abstract class Piece {
             // simply loop through all pieces available squares and if the square of the piece is there then return true else false.
 
             for(Piece piece: game.getWhitePieces()){
-                for(int[] move: piece.availableSquares){
-                    if(Arrays.equals(move,currentSquare)){
-                        return true;
+
+                if (piece instanceof Pawn){
+
+                } else{
+
+                    for(int[] move: piece.availableSquares){
+                        if(Arrays.equals(move,currentSquare)){
+                            return true;
+                        }
                     }
                 }
-            } return false;
+            }
+            return false;
 
         } else{
             for(Piece piece: game.getBlackPieces()){
