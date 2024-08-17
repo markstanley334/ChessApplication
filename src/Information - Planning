@@ -1,0 +1,60 @@
+
+
+Planning for chess application -
+
+
+Knight - Done
+Bishop - Done
+Rook - Done
+Pawn - Done (en passant done, promotion done)
+Queen - not done. Implement the checker functions used for both bishop and rook then should be done
+King - must create check and checkmate, when refreshing check in queen directions for pieces that can put you in check,
+also check knight squares / possible pawn checks.
+
+also a king cannot capture a piece if it is defended.
+
+
+when refreshing, refresh king first
+
+first, go in queen directions to see if any of your pieces are pinned, if yes, remove their available squares
+
+if in check, check each piece to see if they can block,
+
+after full refresh, if the colour has no available moves, it is stalemate and the game is done
+
+after full refresh, if the king is in check and there are no available moves, it is checkmate
+
+there is also: 50 move rule, draw by repetition, draw by insufficient material that needs to be implemented
+
+50 move rule: store each move in an ArrayList.
+check if counter is 50
+if move is a capture (has x in move name) or is a pawn move (starts with lowercase letter), then restart the counter to 1
+
+draw by repetition: make a hashmap of copies of the board. If there are 3 copies of the same position after black moves, then it is a draw.
+
+draw by insufficient material: go through the arrays of black and white's pieces, it will be a draw if:
+king vs king
+king and bishop vs king
+king and knight vs king
+king and 2 knights vs king
+king and knight vs king and knight
+yada yada yada
+
+
+Over next few days:
+
+1. Make Queen Class - DONE !
+
+2. Make King Class
+
+    - make isDefended function
+
+    Pinned Pieces
+    Castling
+    Check / Checkmate
+    Cant move near other king
+
+King class:
+
+
+3. Make game

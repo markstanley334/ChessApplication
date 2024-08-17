@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Game {
 
 
-    // BOARD INDEXES:
+    // BOARD INDICES:
 
     /*
     [ [[0,0],[0,1],[0,2],[0,3],[0,4],[0,5],[0,6],[0,7]],
@@ -16,15 +17,18 @@ public class Game {
        [[6,0],[6,1],[6,2],[6,3],[6,4],[6,5],[6,6],[6,7]],
        [[7,0],[7,1],[7,2],[7,3],[7,4],[7,5],[7,6],[7,7]] ]
 
-
      */
 
+    private int promotionCount;
+    private Piece[][] Board = new Piece[8][8]; // This is the board
 
-    int promotionCount;
-    Piece[][] Board = new Piece[8][8]; // This is the board
-    String turn; // either white or black
+    private ArrayList<Piece> whitePieces;
+    private ArrayList<Piece> blackPieces;
+    private String turn; // either white or black
 
-    int moveNumber; // keep track of move number
+    private int moveNumber; // keep track of move number
+
+
 
     Pawn aPawnWhite;
     Pawn bPawnWhite;
@@ -176,13 +180,127 @@ public class Game {
         Board[6] = Rank2;
         Board[7] = Rank1;
 
+
+        whitePieces = new ArrayList<Piece>();
+        whitePieces.add(aPawnWhite);
+        whitePieces.add(bPawnWhite);
+        whitePieces.add(cPawnWhite);
+        whitePieces.add(dPawnWhite);
+        whitePieces.add(ePawnWhite);
+        whitePieces.add(fPawnWhite);
+        whitePieces.add(gPawnWhite);
+        whitePieces.add(hPawnWhite);
+        whitePieces.add(aRookWhite);
+        whitePieces.add(bKnightWhite);
+        whitePieces.add(cBishopWhite);
+        whitePieces.add(queenWhite);
+        whitePieces.add(kingWhite);
+        whitePieces.add(fBishopWhite);
+        whitePieces.add(gKnightWhite);
+        whitePieces.add(hRookWhite);
+
+        blackPieces = new ArrayList<Piece>();
+        blackPieces.add(aPawnBlack);
+        blackPieces.add(bPawnBlack);
+        blackPieces.add(cPawnBlack);
+        blackPieces.add(dPawnBlack);
+        blackPieces.add(ePawnBlack);
+        blackPieces.add(fPawnBlack);
+        blackPieces.add(gPawnBlack);
+        blackPieces.add(hPawnBlack);
+        blackPieces.add(bKnightBlack);
+        blackPieces.add(cBishopBlack);
+        blackPieces.add(queenBlack);
+        blackPieces.add(kingBlack);
+        blackPieces.add(fBishopBlack);
+        blackPieces.add(gKnightBlack);
+        blackPieces.add(hRookBlack);
+
     }
 
     public Piece[][] getBoard(){
     return Board;}
 
+    public void setSquare(Piece piece, int[] square){
+        Board[square[0]][square[1]] = piece;
+    }
+
+    public Piece getSquare(int[] square){return Board[square[0]][square[1]];}
+
     public void addPromotionCount(){
         promotionCount++;
     }
     public int getPromotionCount(){return promotionCount;}
+
+    public ArrayList<Piece> getWhitePieces(){
+        return whitePieces;
+    }
+
+    public ArrayList<Piece> getBlackPieces(){
+        return blackPieces;
+    }
+
+    public void addWhitePiece(Piece piece){
+        whitePieces.add(piece);
+    }
+
+    public void addBlackPiece(Piece piece){
+        blackPieces.add(piece);
+    }
+
+    public boolean hasWhitePiece(int[] square){
+        if(Board[square[0]][square[1]] == null){
+            return false;
+        } else if(Objects.equals(Board[square[0]][square[1]].colour, "White")){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public boolean hasBlackPiece(int[] square){
+        if(Board[square[0]][square[1]] == null){
+            return false;
+        } else if(Objects.equals(Board[square[0]][square[1]].colour, "Black")){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public boolean hasNoPiece(int[] square){
+        if(Board[square[0]][square[1]] == null){
+            return true;
+        } return false;
+    }
+
+    public boolean whitePawnJustMovedTwo(int[] square){ // this function is for the en passant rule
+        if(Board[square[0]][square[1]] instanceof Pawn && Board[square[0]][square[1]].colour.equals("White")){ // if the square is a pawn & the pawn is white
+                if(Arrays.equals(Board[square[0]][square[1]].previousSquare, new int[]{6, square[1]})){ // the previous square was a starting square
+                    return true;
+                }
+            }
+        return false;
+    }
+    public boolean blackPawnJustMovedTwo(int[] square){ // this function is for the en passant rule
+        if(Board[square[0]][square[1]] instanceof Pawn && Board[square[0]][square[1]].colour.equals("Black")){ // if the square is a pawn & the pawn is white
+            if(Arrays.equals(Board[square[0]][square[1]].previousSquare, new int[]{1, square[1]})){ // the previous square was a starting square
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void printBoard(){
+        for(Piece[] rank: Board){
+            System.out.println("\n");
+            for(Piece piece: rank){
+                if(piece == null){
+                    System.out.print("");
+                } else{
+                System.out.print(piece.name);
+                }
+            }
+        }
+    }
 }

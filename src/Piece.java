@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public abstract class Piece {
 
@@ -28,16 +29,62 @@ public abstract class Piece {
 
     }
 
-    public void move(int[] newSquare){ // this will move a piece to a new square (could be a capture)
-        previousSquare = currentSquare;
-        currentSquare = newSquare;
-    }
+    public boolean move(int[] newSquare, Game game) { // this will move a piece to a new square (could be a capture)
+
+
+        if (game.getBoard()[newSquare[0]][newSquare[1]] == null) {
+            game.setSquare(null, previousSquare);
+            game.setSquare(this, newSquare);
+            previousSquare = currentSquare;
+            currentSquare = newSquare;
+
+            return true;
+        } else {
+            // func to remove from piece list
+            game.setSquare(null, previousSquare);
+            game.setSquare(this, newSquare);
+            previousSquare = currentSquare;
+            currentSquare = newSquare;
+
+            return true;
+            }
+        }
+
+
+
+
 
     public void refresh(Game game){} // this method will refresh a piece to ensure all the squares are possible to move to.
 
     public void addAvailableSquare(int[] newSquare){ // adds a square the piece can move to.
         availableSquares.add(newSquare);
     }
+
+    public boolean isDefended(Game game){
+        if (colour.equals("White")){
+
+            // simply loop through all pieces available squares and if the square of the piece is there then return true else false.
+
+            for(Piece piece: game.getWhitePieces()){
+                for(int[] move: piece.availableSquares){
+                    if(Arrays.equals(move,currentSquare)){
+                        return true;
+                    }
+                }
+            } return false;
+
+        } else{
+            for(Piece piece: game.getBlackPieces()){
+                for(int[] move: piece.availableSquares){
+                    if(Arrays.equals(move, currentSquare)){
+                        return true;
+                    }
+                }
+            } return false;
+        }
+    }
+
+
 
 
 }
