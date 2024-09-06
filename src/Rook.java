@@ -15,92 +15,100 @@ public class Rook extends Piece{
         if (colour.equals("White")) {
 
             for (int i = 1; i <= currentSquare[0]; i++) { // going up
-                if(game.hasWhitePiece(new int[]{currentSquare[0]-i,currentSquare[1]})){
+                int[]movement = new int[]{currentSquare[0]-i,currentSquare[1]};
+                if(game.hasWhitePiece(movement)){
                     break;
-                } else if(game.hasBlackPiece(new int[]{currentSquare[0]-i,currentSquare[1]})){
-                    availableSquares.add(new int[]{currentSquare[0]-i,currentSquare[1]});
+                } else if(game.hasBlackPiece(movement)){
+                    availableSquares.add(movement);
                     break;
                 } else{
-                    availableSquares.add(new int[]{currentSquare[0]-i,currentSquare[1]});
+                    availableSquares.add(movement);
                 }
             }
 
             for (int i = 1; i<=7-currentSquare[0];i++){ // going down
-                if(game.hasWhitePiece(new int[]{currentSquare[0]+i,currentSquare[1]})){
+                int[]movement = new int[]{currentSquare[0]+i,currentSquare[1]};
+                if(game.hasWhitePiece(movement)){
                     break;
-                } else if(game.hasBlackPiece(new int[]{currentSquare[0]+i,currentSquare[1]})){
-                    availableSquares.add(new int[]{currentSquare[0]+i,currentSquare[1]});
+                } else if(game.hasBlackPiece(movement)){
+                    availableSquares.add(movement);
                     break;
                 } else{
-                    availableSquares.add(new int[]{currentSquare[0]+i,currentSquare[1]});
+                    availableSquares.add(movement);
                 }
             }
 
             for (int i = 1; i<=7-currentSquare[1];i++){ // going right
-                if(game.hasWhitePiece(new int[]{currentSquare[0],currentSquare[1]+i})){
+                int[] movement = new int[]{currentSquare[0],currentSquare[1]+i};
+                if(game.hasWhitePiece(movement)){
                     break;
-                } else if(game.hasBlackPiece(new int[]{currentSquare[0],currentSquare[1]+i})){
-                    availableSquares.add(new int[]{currentSquare[0],currentSquare[1]+i});
+                } else if(game.hasBlackPiece(movement)){
+                    availableSquares.add(movement);
                     break;
                 } else{
-                    availableSquares.add(new int[]{currentSquare[0],currentSquare[1]+i});
+                    availableSquares.add(movement);
                 }
             }
 
             for (int i = 1; i<= currentSquare[1]; i++){ // going left
-                if(game.hasWhitePiece(new int[]{currentSquare[0],currentSquare[1]-i})){
+                int[] movement = new int[]{currentSquare[0],currentSquare[1]-i};
+                if(game.hasWhitePiece(movement)){
                     break;
-                } else if(game.hasBlackPiece(new int[]{currentSquare[0],currentSquare[1]-i})){
-                    availableSquares.add(new int[]{currentSquare[0],currentSquare[1]-i});
+                } else if(game.hasBlackPiece(movement)){
+                    availableSquares.add(movement);
                     break;
                 } else{
-                    availableSquares.add(new int[]{currentSquare[0],currentSquare[1]-i});
+                    availableSquares.add(movement);
                 }
             }
 
             } else if (colour.equals("Black")){
 
             for (int i = 1; i <= currentSquare[0]; i++) { // going up
-                if(game.hasBlackPiece(new int[]{currentSquare[0]-i,currentSquare[1]})){
+                int[]movement = new int[]{currentSquare[0]-i,currentSquare[1]};
+                if(game.hasBlackPiece(movement)){
                     break;
-                } else if(game.hasWhitePiece(new int[]{currentSquare[0]-i,currentSquare[1]})){
-                    availableSquares.add(new int[]{currentSquare[0]-i,currentSquare[1]});
+                } else if(game.hasWhitePiece(movement)){
+                    availableSquares.add(movement);
                     break;
                 } else{
-                    availableSquares.add(new int[]{currentSquare[0]-i,currentSquare[1]});
+                    availableSquares.add(movement);
                 }
             }
 
             for (int i = 1; i<=7-currentSquare[0];i++){ // going down
-                if(game.hasBlackPiece(new int[]{currentSquare[0]+i,currentSquare[1]})){
+                int[]movement = new int[]{currentSquare[0]+i,currentSquare[1]};
+                if(game.hasBlackPiece(movement)){
                     break;
-                } else if(game.hasWhitePiece(new int[]{currentSquare[0]+i,currentSquare[1]})){
-                    availableSquares.add(new int[]{currentSquare[0]+i,currentSquare[1]});
+                } else if(game.hasWhitePiece(movement)){
+                    availableSquares.add(movement);
                     break;
                 } else{
-                    availableSquares.add(new int[]{currentSquare[0]+i,currentSquare[1]});
+                    availableSquares.add(movement);
                 }
             }
 
             for (int i = 1; i<=7-currentSquare[1];i++){ // going right
-                if(game.hasBlackPiece(new int[]{currentSquare[0],currentSquare[1]+i})){
+                int[] movement = new int[]{currentSquare[0],currentSquare[1]+i};
+                if(game.hasBlackPiece(movement)){
                     break;
-                } else if(game.hasWhitePiece(new int[]{currentSquare[0],currentSquare[1]+i})){
-                    availableSquares.add(new int[]{currentSquare[0],currentSquare[1]+i});
+                } else if(game.hasWhitePiece(movement)){
+                    availableSquares.add(movement);
                     break;
                 } else{
-                    availableSquares.add(new int[]{currentSquare[0],currentSquare[1]+i});
+                    availableSquares.add(movement);
                 }
             }
 
             for (int i = 1; i<= currentSquare[1]; i++){ // going left
-                if(game.hasBlackPiece(new int[]{currentSquare[0],currentSquare[1]-i})){
+                int[] movement = new int[]{currentSquare[0],currentSquare[1]-i};
+                if(game.hasBlackPiece(movement)){
                     break;
-                } else if(game.hasWhitePiece(new int[]{currentSquare[0],currentSquare[1]-i})){
-                    availableSquares.add(new int[]{currentSquare[0],currentSquare[1]-i});
+                } else if(game.hasWhitePiece(movement)){
+                    availableSquares.add(movement);
                     break;
                 } else{
-                    availableSquares.add(new int[]{currentSquare[0],currentSquare[1]-i});
+                    availableSquares.add(movement);
                 }
             }
 

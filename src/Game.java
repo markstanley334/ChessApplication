@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class Game {
@@ -24,9 +25,18 @@ public class Game {
 
     private ArrayList<Piece> whitePieces;
     private ArrayList<Piece> blackPieces;
-    private String turn; // either white or black
+    public String turn; // either white or black
 
     private int moveNumber; // keep track of move number
+
+    private ArrayList<Piece[][]> boardCopies;
+
+    private ArrayList<Integer> boardCopyCount;
+
+    private ArrayList<String> allMoves;
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
 
 
 
@@ -208,6 +218,7 @@ public class Game {
         blackPieces.add(fPawnBlack);
         blackPieces.add(gPawnBlack);
         blackPieces.add(hPawnBlack);
+        blackPieces.add(aRookBlack);
         blackPieces.add(bKnightBlack);
         blackPieces.add(cBishopBlack);
         blackPieces.add(queenBlack);
@@ -215,6 +226,12 @@ public class Game {
         blackPieces.add(fBishopBlack);
         blackPieces.add(gKnightBlack);
         blackPieces.add(hRookBlack);
+
+        boardCopies = new ArrayList<>();
+        boardCopyCount = new ArrayList<>();
+
+
+        allMoves = new ArrayList<String>();
 
     }
 
@@ -226,6 +243,8 @@ public class Game {
     }
 
     public Piece getSquare(int[] square){return Board[square[0]][square[1]];}
+
+    public Piece getSquare(int[] square, Piece[][] board){return board[square[0]][square[1]];} // operator overloading
 
     public void addPromotionCount(){
         promotionCount++;
@@ -248,10 +267,28 @@ public class Game {
         blackPieces.add(piece);
     }
 
+    public boolean removePiece(int[] square){
+        for(Piece piece: whitePieces){
+            if(Arrays.equals(square,piece.currentSquare)){ // remove the piece
+                whitePieces.remove(piece);
+                return true;
+            }
+        }
+
+        for(Piece piece: blackPieces){
+            if(Arrays.equals(square, piece.currentSquare)){
+                blackPieces.remove(piece);
+                return true;
+            }
+        } return false;
+    }
+
+
+
     public boolean hasWhitePiece(int[] square){
         if(Board[square[0]][square[1]] == null){
             return false;
-        } else if(Objects.equals(Board[square[0]][square[1]].colour, "White")){
+        } else if(Board[square[0]][square[1]].colour.equals("White")){
             return true;
         } else{
             return false;
@@ -261,7 +298,7 @@ public class Game {
     public boolean hasBlackPiece(int[] square){
         if(Board[square[0]][square[1]] == null){
             return false;
-        } else if(Objects.equals(Board[square[0]][square[1]].colour, "Black")){
+        } else if(Board[square[0]][square[1]].colour.equals("Black")){
             return true;
         } else{
             return false;
@@ -291,16 +328,177 @@ public class Game {
         return false;
     }
 
+    public boolean isDefendedByWhite(int[] square) { // note this function can only be used after pieces have been refreshed
+
+            for (Piece piece : whitePieces) {
+                if (piece instanceof Pawn) {
+                    for (int[] move : ((Pawn) piece).getCaptureDirections()) {
+                        if (Arrays.equals(move, square)) {
+                            return true;
+                        }
+                    }
+                } else {
+
+                    for (int[] move : piece.availableSquares) {
+                        if (Arrays.equals(move, square)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+
+        }
+
+        public boolean isDefendedByBlack(int[] square){
+            for (Piece piece : blackPieces) {
+                if (piece instanceof Pawn) {
+                    for (int[] move : ((Pawn) piece).getCaptureDirections()) {
+                        if (Arrays.equals(move, square)) {
+                            return true;
+                        }
+                    }
+                } else {
+
+                    for (int[] move : piece.availableSquares) {
+                        if (Arrays.equals(move, square)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+
+    public String arrayToAlgebraicNotation(int[] square) {
+        String letter = null;
+        switch (square[1]) {
+
+            case 0:
+                letter = "a";
+                break;
+            case 1:
+                letter = "b";
+                break;
+            case 2:
+                letter = "c";
+                break;
+            case 3:
+                letter = "d";
+                break;
+            case 4:
+                letter = "e";
+                break;
+            case 5:
+                letter = "f";
+                break;
+            case 6:
+                letter = "g";
+                break;
+            case 7:
+                letter = "h";
+                break;
+        }
+
+        Integer number = (8-square[0]);
+
+        String numberText = number.toString();
+        return letter+numberText;
+
+    }
+
+    public boolean isSameBoard(Piece[][] board1, Piece[][] board2) {
+        for(int i = 0; i<8; i++) {
+            for (int j = 0; j < 8; j++) {
+
+                if(board1[i][j] == null){
+                    if(board2[i][j] != null){
+                        return false;
+                    }
+                } else if(board2[i][j] == null){
+                    if(board1[i][j] != null){
+                        return false;
+                    }
+                } else if (!(board1[i][j].equals(board2[i][j]))) { // if different pieces
+                    return false;
+
+                }
+            }
+        } return true;
+    }
+
+    public boolean addBoardCopy() { // always add the board to the list, then
+        int count = 0;
+        for (Piece[][] boardCopy : boardCopies) {
+            if(isSameBoard(boardCopy,Board)){
+                System.out.println("same board detected");
+                Piece[][] copy = Board.clone();
+                for(int i = 0; i< copy.length; i++){
+                    copy[i] = Board[i].clone();
+                }
+                boardCopies.add(copy);
+                boardCopyCount.set(count,boardCopyCount.get(count)+1);
+                boardCopyCount.add(1);
+                return true;
+
+            }
+            count++;
+
+        } // all boards have been searched no match
+        System.out.println("unique board");
+
+        Piece[][] copy = Board.clone();
+        for(int i = 0; i< copy.length; i++){
+            copy[i] = Board[i].clone();
+        }
+        boardCopies.add(copy);
+        boardCopyCount.add(1);
+        return false;
+    }
+
+    public ArrayList<Piece[][]> getBoardCopies(){
+        return boardCopies;
+    }
+
+    public ArrayList<Integer> getBoardCopyCount(){
+        return boardCopyCount;
+    }
+
+
     public void printBoard(){
         for(Piece[] rank: Board){
-            System.out.println("\n");
+            System.out.print("\n");
             for(Piece piece: rank){
                 if(piece == null){
-                    System.out.print("");
+                    System.out.print("_");
                 } else{
-                System.out.print(piece.name);
+                    if(piece.colour.equals("White")){
+                        System.out.print(piece.name);
+                    } else {
+                        System.out.print(ANSI_YELLOW + piece.name + ANSI_RESET);
+                    }
                 }
             }
         }
+        System.out.println("");
+    }
+
+    public void printBoard(Piece[][] board){
+        for(Piece[] rank: board){
+            System.out.print("\n");
+            for(Piece piece: rank){
+                if(piece == null){
+                    System.out.print("_");
+                } else{
+                    if(piece.colour.equals("White")){
+                        System.out.print(piece.name);
+                    } else {
+                        System.out.print(ANSI_YELLOW + piece.name + ANSI_RESET);
+                    }
+                }
+            }
+        }
+        System.out.println("");
     }
 }

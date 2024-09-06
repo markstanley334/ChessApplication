@@ -42,11 +42,11 @@ public class Pawn extends Piece {
                 if (game.hasNoPiece(new int[]{4, currentSquare[1]})) {
                     availableSquares.add(new int[]{4, currentSquare[1]});
                 }
-
+            }
                 if (game.hasNoPiece(new int[]{currentSquare[0] - 1, currentSquare[1]})) {
                     availableSquares.add(new int[]{currentSquare[0] - 1, currentSquare[1]});
                 }
-            }
+
 
             // next we do captures (also add to captureDirections ArrayList)
 
@@ -78,23 +78,23 @@ public class Pawn extends Piece {
                 if (currentSquare[1] == 0) {
 
                     if (game.blackPawnJustMovedTwo(new int[]{3, 1})) { // check towards h file
-                        availableSquares.add(new int[]{3, 1});
+                        availableSquares.add(new int[]{2, 1});
                     }
 
                 } else if (currentSquare[1] == 7) {
 
                     if (game.blackPawnJustMovedTwo(new int[]{3, 6})) { // check towards a file
-                        availableSquares.add(new int[]{3, 6});
+                        availableSquares.add(new int[]{2, 6});
                     }
 
                 } else {
                     // check both directions
                     if (game.blackPawnJustMovedTwo(new int[]{3, currentSquare[1] + 1})) { // check towards h file
-                        availableSquares.add(new int[]{3, currentSquare[1] + 1});
+                        availableSquares.add(new int[]{2, currentSquare[1] + 1});
                     }
 
                     if (game.blackPawnJustMovedTwo(new int[]{3, currentSquare[1] - 1})) { // check towards a file
-                        availableSquares.add(new int[]{3, currentSquare[1] - 1});
+                        availableSquares.add(new int[]{2, currentSquare[1] - 1});
                     }
 
                 }
@@ -107,10 +107,10 @@ public class Pawn extends Piece {
                 if (game.hasNoPiece(new int[]{3, currentSquare[1]})) {
                     availableSquares.add(new int[]{3, currentSquare[1]});
                 }
+            }
 
-                if (game.hasNoPiece(new int[]{currentSquare[0] + 1, currentSquare[1]})) {
-                    availableSquares.add(new int[]{currentSquare[0] + 1, currentSquare[1]});
-                }
+            if (game.hasNoPiece(new int[]{currentSquare[0] + 1, currentSquare[1]})) {
+                availableSquares.add(new int[]{currentSquare[0] + 1, currentSquare[1]});
             }
 
             // next we do captures
@@ -143,23 +143,23 @@ public class Pawn extends Piece {
                 if (currentSquare[1] == 0) {
 
                     if (game.whitePawnJustMovedTwo(new int[]{4, 1})) { // check towards h file
-                        availableSquares.add(new int[]{4, 1});
+                        availableSquares.add(new int[]{5, 1});
                     }
 
                 } else if (currentSquare[1] == 7) {
 
                     if (game.whitePawnJustMovedTwo(new int[]{4, 6})) { // check towards a file
-                        availableSquares.add(new int[]{4, 6});
+                        availableSquares.add(new int[]{5, 6});
                     }
 
                 } else {
                     // check both directions
                     if (game.whitePawnJustMovedTwo(new int[]{4, currentSquare[1] + 1})) { // check towards h file
-                        availableSquares.add(new int[]{4, currentSquare[1] + 1});
+                        availableSquares.add(new int[]{5, currentSquare[1] + 1});
                     }
 
                     if (game.whitePawnJustMovedTwo(new int[]{4, currentSquare[1] - 1})) { // check towards a file
-                        availableSquares.add(new int[]{4, currentSquare[1] - 1});
+                        availableSquares.add(new int[]{5, currentSquare[1] - 1});
                     }
 
                 }
@@ -185,22 +185,42 @@ public class Pawn extends Piece {
             Queen promotedQueen = new Queen("Q" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedQueen, square); // add piece to the board
             promotedQueen.refresh(game);
+            if(colour.equals("White")){
+                game.addWhitePiece(promotedQueen);
+            } else{
+                game.addBlackPiece(promotedQueen);
+            }
             return promotedQueen;
         } else if(pieceType == 1){
             game.addPromotionCount();
             Rook promotedRook = new Rook("R" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedRook, square);
             promotedRook.refresh(game);
+            if(colour.equals("White")){
+                game.addWhitePiece(promotedRook);
+            } else{
+                game.addBlackPiece(promotedRook);
+            }
             return promotedRook;
         } else if (pieceType == 2){
             game.addPromotionCount();
             Bishop promotedBishop = new Bishop("B" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedBishop,square);
+            if(colour.equals("White")){
+                game.addWhitePiece(promotedBishop);
+            } else{
+                game.addBlackPiece(promotedBishop);
+            }
             return promotedBishop;
         } else if (pieceType == 3){
             game.addPromotionCount();
             Knight promotedKnight = new Knight("N" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedKnight, square);
+            if(colour.equals("White")){
+                game.addWhitePiece(promotedKnight);
+            } else{
+                game.addBlackPiece(promotedKnight);
+            }
             return promotedKnight;
         }
         return null;
@@ -212,6 +232,47 @@ public class Pawn extends Piece {
     }
 
 
+    public void move(int[] newSquare, Game game) {
+        if (game.getBoard()[newSquare[0]][newSquare[1]] == null) {
+            if(newSquare[0] == 0 || newSquare[0] == 7){
+                promote(newSquare,game,0); // this is queen by default
+                game.getSquare(newSquare).refresh(game);
+                game.removePiece(currentSquare);}
+            else{
 
+                if(currentSquare[1] != newSquare[1]) { // en passant occurance
+                    if(currentSquare[0] == 3){
+                        // white piece capturing black piece
+                        game.removePiece(new int[]{3,newSquare[1]});
+                        game.setSquare(null,new int[]{3,newSquare[1]});
+                    } else{
+                        // black piece capturing white piece
+                        // currentSquare[0] == 4
+                        game.removePiece(new int[]{4,newSquare[1]});
+                        game.setSquare(null,new int[]{4,newSquare[1]});
+                    }
+                }
 
+                previousSquare = currentSquare;
+                currentSquare = newSquare;
+                game.setSquare(null, previousSquare);
+                game.setSquare(this, newSquare);
+            }
+        } else {
+            game.removePiece(newSquare); // remove the captured piece from their respective piece list.
+
+            if(newSquare[0] == 0 || newSquare[0] == 7){
+                promote(newSquare,game,0); // this is queen by default
+                game.getSquare(newSquare).refresh(game);
+                game.removePiece(currentSquare); // remove this piece
+            } else{
+                // no promotion but capture
+                previousSquare = currentSquare;
+                currentSquare = newSquare;
+                game.setSquare(null, previousSquare);
+                game.setSquare(this, newSquare);
+
+            }
+        }
+    }
 }

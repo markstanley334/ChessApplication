@@ -7,18 +7,20 @@ Knight - Done
 Bishop - Done
 Rook - Done
 Pawn - Done (en passant done, promotion done)
-Queen - not done. Implement the checker functions used for both bishop and rook then should be done
+Queen - Done
 King - must create check and checkmate, when refreshing check in queen directions for pieces that can put you in check,
 also check knight squares / possible pawn checks.
 
-also a king cannot capture a piece if it is defended.
+also a king cannot capture a piece if it is defended. ****
 
 
-when refreshing, refresh king first
+king refreshes last
 
 first, go in queen directions to see if any of your pieces are pinned, if yes, remove their available squares
 
 if in check, check each piece to see if they can block,
+
+checking squares: if white piece, can't move there, if black piece, if defended can't move there, if empty, check if white pieces can see it.
 
 after full refresh, if the colour has no available moves, it is stalemate and the game is done
 
@@ -33,11 +35,15 @@ if move is a capture (has x in move name) or is a pawn move (starts with lowerca
 draw by repetition: make a hashmap of copies of the board. If there are 3 copies of the same position after black moves, then it is a draw.
 
 draw by insufficient material: go through the arrays of black and white's pieces, it will be a draw if:
+
+if there are any pawns, rooks, or queens then it will not be a draw by insufficient material
+
 king vs king
 king and bishop vs king
 king and knight vs king
 king and 2 knights vs king
 king and knight vs king and knight
+king and 2+ bishops (if different colours)
 yada yada yada
 
 
@@ -47,14 +53,81 @@ Over next few days:
 
 2. Make King Class
 
-    - make isDefended function
+    - make isDefended function - DONE !
+    - make refresh() function - in progress
 
-    Pinned Pieces
-    Castling
+    Pinned Pieces - Done
+    Castling - Done
+    loop through previous boards
+    if no rook on its starting square, then no castling that way
+    if no king on starting square, then no castling at all
     Check / Checkmate
-    Cant move near other king
+    Cant move near other king - Done
 
 King class:
 
+refresh function:
+
+first go in bishop and rook directions to pin own pieces and to look for checks.
+if any checks, increment check counter by one (and keep piece in mind, this will matter for blocks)
+check knight directions to see if in check from knight
+
+if in 1 check, look for available moves around:
+    if same piece, unavailable
+    if opponent piece, check if defended:
+        if not defended, add to available moves
+    if empty square, check if opponents pieces can move there ( this would mean that both sides would need to be refreshed after a move)
+
+
+update where king can move
+
+for blocking,
+    determine the direction of the check and where the piece is
+    move in that direction starting from one square past king, then for each square:
+        loop through all pieces available moves, if the squares match,
+            then add that move to an array of size 2 int[2][2]. (this will have to be created in the piece class)
+        after all the squares have been looped through, for each piece:
+            if the piece's blockarray is empty, remove all availablemoves
+            if it has moves in it, add them to availablemoves
+
+
+
+castling:
+    check all game moves to see if the king has moved and rooks too
+    if not, check to see if empty spaces between king and rook (also check opponents available moves to make sure the squares are undefended)
+    if available, add the move to available moves (when moving the king, if he moves 2 squares, then move the rook to the other side of him)
+
+king has to refresh LAST, as the king refresh will remove available moves of pinned pieces, and use the
+pieces available moves for blocks in case of checks.
+
+
+be careful when overwriting move() function
+
+for the physical application itself, use a gridpane in JavaFX of course
+
 
 3. Make game
+
+in game class, create a "notationMove(previousSquare,newSquare)" function, which takes a move and makes it in chess notation
+ex: 'a4', 'Na7', 'Nxf7', it will then append this to the moves ArrayList
+
+check past 50 moves (basically 100) to see if any captures (look for 'x'), or pawn moves (look for move starting with lowercase letter -> (a,b,c,d,e,f,g,h)
+
+
+4. Make application (starting now)
+
+Button panes:
+
+1.  for the moves in the top right (listview)
+
+2. for going forwards or backword on a move
+
+3. for restarting game or flipping board
+
+GridPane:
+
+make each one a togglebutton (when selected, we can change the shade a little bit)
+
+
+
+

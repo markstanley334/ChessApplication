@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -11,21 +12,51 @@ import javafx.stage.Stage;
 
 public class GameApplication extends Application {
 
-    public void start(Stage primaryStage) {
-        primaryStage.setTitle("Hello World!");
-        Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+    private Game model;
 
+    public void start(Stage primaryStage) {
+
+        model = new Game();
+        Pane aStartingPane = new Pane();
+        GameView view = new GameView();
+        aStartingPane.getChildren().add(view);
+
+        view.update(model,false);
+
+
+        primaryStage.setTitle("Chess Application");
+
+        view.getFbButtonPane().getForwardsButton().setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+                System.out.println("The forwards button is working");
             }
         });
 
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        primaryStage.setScene(new Scene(root, 300, 250));
+        view.getFbButtonPane().getBackwardsButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("The backwards button is working");
+            }
+        });
+
+        view.getFbButtonPane().getResetButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("The reset button is working");
+            }
+        });
+
+        view.getFbButtonPane().getFlipBoardButton().setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                System.out.println("The flip board button is working");
+            }
+        });
+
+
+        primaryStage.setResizable(false);
+        primaryStage.setScene(new Scene(aStartingPane,1350,850));
         primaryStage.show();
     }
 
