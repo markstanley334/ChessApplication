@@ -33,7 +33,8 @@ public class Game {
 
     private ArrayList<Integer> boardCopyCount;
 
-    private ArrayList<String> allMoves;
+    private ArrayList<String> whiteMoves;
+    private ArrayList<String> blackMoves;
 
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_YELLOW = "\u001B[33m";
@@ -76,10 +77,6 @@ public class Game {
 
     Queen queenBlack;
     King kingBlack;
-
-
-
-
 
 
     public Game(){
@@ -231,7 +228,10 @@ public class Game {
         boardCopyCount = new ArrayList<>();
 
 
-        allMoves = new ArrayList<String>();
+        whiteMoves = new ArrayList<String>();
+        blackMoves = new ArrayList<String>();
+
+        turn = "White";
 
     }
 
@@ -501,4 +501,117 @@ public class Game {
         }
         System.out.println("");
     }
+
+    public String moveInChessNotation(Piece piece, Piece promotedPiece, int[] oldSquare, int[] newSquare){
+
+        // what we need to accomplish:
+
+        // pawn moves: a4, a5, axb6  but also if the king becomes in check we have a4+ (plus means check)
+        // hashtag means checkmate: a4#
+        // promotion is like: a8=Q or a8=N (knight or queen respectively
+        // O-O is kingside castle O-O-O is queenside castle
+        // pawn: ""
+        // knight: "N"
+        // bishop: "B"
+        // rook: "R"
+        // queen: "Q"
+        // king: "K"
+        // then must deal with disambiguation (if the same type of piece could have reached the same square,
+        // either the rank, file, or both must be stated in notation.
+
+        // so steps for this function should:
+        //     - piece type add to string
+        //     - determine if there is disambiguation
+        //     - check if it is a capture
+        //     - if pawn promotion add that here
+        //     - check if it is check / checkmate
+
+
+        // for disambiguation:
+        // look through all similar pieces to see if they could have moved to the square.
+        // If not, no clarification needed
+        // If yes, compare rank and file to see what to change
+        // finish looping. If only 1 shared movement, alter this movement
+        // if 2 shared movements state the previous square using the arrayToAlgebraicNotation() function
+
+        if(piece.colour.equals("White")){
+
+        if(getSquare(newSquare) == null){ // this is NOT a capture (except for en passant)
+
+            if(piece instanceof Pawn){
+                // pawn either is pushing forward here or promoting
+                String newSquareString = arrayToAlgebraicNotation(newSquare);
+
+
+            } else if(piece instanceof Knight){
+
+
+            } else if(piece instanceof Bishop){
+
+            } else if(piece instanceof Rook){
+
+            } else if(piece instanceof Queen){
+
+            } else{
+                // this is a king
+            }
+
+        } else{
+            // this IS a capture
+            if(piece instanceof Pawn){
+
+            }else if(piece instanceof Knight){
+
+            } else if(piece instanceof Bishop){
+
+            } else if(piece instanceof Rook){
+
+            } else if(piece instanceof Queen){
+
+            } else{
+                // this is a king
+            }
+        } } else{
+            // here colour is black
+            if(getSquare(newSquare) == null){ // this is NOT a capture (except for en passant)
+
+                if(piece instanceof Pawn){
+                    // pawn either is pushing forward here or promoting
+                    String newSquareString = arrayToAlgebraicNotation(newSquare);
+
+
+                } else if(piece instanceof Knight){
+
+
+                } else if(piece instanceof Bishop){
+
+                } else if(piece instanceof Rook){
+
+                } else if(piece instanceof Queen){
+
+                } else{
+                    // this is a king
+                }
+
+            } else{
+                // this IS a capture
+                if(piece instanceof Pawn){
+
+                }else if(piece instanceof Knight){
+
+                } else if(piece instanceof Bishop){
+
+                } else if(piece instanceof Rook){
+
+                } else if(piece instanceof Queen){
+
+                } else{
+                    // this is a king
+                }
+            }
+        }
+
+        return "false";
+    }
+
 }

@@ -8,16 +8,11 @@ Bishop - Done
 Rook - Done
 Pawn - Done (en passant done, promotion done)
 Queen - Done
-King - must create check and checkmate, when refreshing check in queen directions for pieces that can put you in check,
-also check knight squares / possible pawn checks.
-
-also a king cannot capture a piece if it is defended. ****
-
+King - Done
 
 king refreshes last
 
 first, go in queen directions to see if any of your pieces are pinned, if yes, remove their available squares
-
 if in check, check each piece to see if they can block,
 
 checking squares: if white piece, can't move there, if black piece, if defended can't move there, if empty, check if white pieces can see it.
@@ -127,6 +122,19 @@ Button panes:
 GridPane:
 
 make each one a togglebutton (when selected, we can change the shade a little bit)
+
+
+BACK TO PROJECT
+
+need to simplify things. Only refresh a piece when it is selected.
+
+Once it gets selected, set a flag so if you change and change back the piece doesn't refresh again (on one turn)
+
+if in check, only care about king and blocking pieces
+
+check spatially where it can move, then ensure that that works with king
+
+
 
 
 
