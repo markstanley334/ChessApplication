@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
+// **this file was for doing the logic of the actual game class before building the application. It is not meant to be run but I am currently using it as a reference.
 public class run
 {
 

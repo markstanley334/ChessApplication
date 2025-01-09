@@ -1,31 +1,16 @@
 
 
-Planning for chess application -
+My personal planning document:
+
+This document may be messy and just represents my current thinking
+
+Keep in mind that this project I am writing almost solely on my own, without consulting other code that makes chess.
+So it could be made more efficiently but this project is more about learning how to use JavaFX and figuring out the logic on my own.
 
 
-Knight - Done
-Bishop - Done
-Rook - Done
-Pawn - Done (en passant done, promotion done)
-Queen - Done
-King - Done
+DRAW RULES: 50 move rule, draw by repetition, draw by insufficient material
 
-king refreshes last
-
-first, go in queen directions to see if any of your pieces are pinned, if yes, remove their available squares
-if in check, check each piece to see if they can block,
-
-checking squares: if white piece, can't move there, if black piece, if defended can't move there, if empty, check if white pieces can see it.
-
-after full refresh, if the colour has no available moves, it is stalemate and the game is done
-
-after full refresh, if the king is in check and there are no available moves, it is checkmate
-
-there is also: 50 move rule, draw by repetition, draw by insufficient material that needs to be implemented
-
-50 move rule: store each move in an ArrayList.
-check if counter is 50
-if move is a capture (has x in move name) or is a pawn move (starts with lowercase letter), then restart the counter to 1
+50 move rule: store a count variable and call draw if it reaches 50. Each time a pawn moves or a piece is captured, restart the count to 1
 
 draw by repetition: make a hashmap of copies of the board. If there are 3 copies of the same position after black moves, then it is a draw.
 
@@ -39,25 +24,7 @@ king and knight vs king
 king and 2 knights vs king
 king and knight vs king and knight
 king and 2+ bishops (if different colours)
-yada yada yada
 
-
-Over next few days:
-
-1. Make Queen Class - DONE !
-
-2. Make King Class
-
-    - make isDefended function - DONE !
-    - make refresh() function - in progress
-
-    Pinned Pieces - Done
-    Castling - Done
-    loop through previous boards
-    if no rook on its starting square, then no castling that way
-    if no king on starting square, then no castling at all
-    Check / Checkmate
-    Cant move near other king - Done
 
 King class:
 
@@ -86,7 +53,6 @@ for blocking,
             if it has moves in it, add them to availablemoves
 
 
-
 castling:
     check all game moves to see if the king has moved and rooks too
     if not, check to see if empty spaces between king and rook (also check opponents available moves to make sure the squares are undefended)
@@ -96,43 +62,56 @@ king has to refresh LAST, as the king refresh will remove available moves of pin
 pieces available moves for blocks in case of checks.
 
 
-be careful when overwriting move() function
-
-for the physical application itself, use a gridpane in JavaFX of course
-
-
 3. Make game
 
 in game class, create a "notationMove(previousSquare,newSquare)" function, which takes a move and makes it in chess notation
 ex: 'a4', 'Na7', 'Nxf7', it will then append this to the moves ArrayList
 
-check past 50 moves (basically 100) to see if any captures (look for 'x'), or pawn moves (look for move starting with lowercase letter -> (a,b,c,d,e,f,g,h)
-
-
-4. Make application (starting now)
+4. Application
 
 Button panes:
 
-1.  for the moves in the top right (listview)
+1. for the moves in the top right (listview)
 
-2. for going forwards or backword on a move
+2. for going forwards or backwards on a move
 
 3. for restarting game or flipping board
 
 GridPane:
 
-make each one a togglebutton (when selected, we can change the shade a little bit)
-
-
-BACK TO PROJECT
-
-need to simplify things. Only refresh a piece when it is selected.
-
-Once it gets selected, set a flag so if you change and change back the piece doesn't refresh again (on one turn)
+FINISHING PROJECT
 
 if in check, only care about king and blocking pieces
 
 check spatially where it can move, then ensure that that works with king
+
+
+AESTHETICS:
+
+from nothing selected:
+
+clicking on empty square: does nothing
+clicking on opponents piece: does nothing
+
+clicking on own piece: colour of square the piece is on gets darker
+    if piece has no available squares (pinned, king in check, or blocked in): does nothing
+    if piece has available squares (can block, move, or capture): available squares get dark circle in middle
+        if available square has a piece on it, (piece wont be king that would already be checkmate)
+
+if piece is selected (should be flag for this):
+    clicking on unavailable square simply deselects the piece and resets the colours, circles, and borders
+    clicking on available square moves the piece there (images have to update)
+
+if king is in check, some sort of effect (like a red border) to indicate this
+
+if checkmate / stalemate / draw of some sort: indicate the result of the game to the user
+
+moves should show up on right side
+
+GAME LOGIC:
+
+When the application is launched, a new game will be created
+
 
 
 

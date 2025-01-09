@@ -5,11 +5,52 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class BoardPane extends Pane {
 
     private ToggleButton[][] buttons;
+
+    private Circle[][] circles;
+
+    private double circleRadius;
+
+    private double buttonSize;
+
+    private Image whiteRookA;
+    private Image whiteRookH;
+    private Image whiteKnightB;
+    private Image whiteKnightG;
+    private Image whiteBishopC;
+    private Image whiteBishopF;
+    private Image whiteQueen;
+    private Image whiteKing;
+    private Image whitePawnA;
+    private Image whitePawnB;
+    private Image whitePawnC;
+    private Image whitePawnD;
+    private Image whitePawnE;
+    private Image whitePawnF;
+    private Image whitePawnG;
+    private Image whitePawnH;
+    private Image blackRookA;
+    private Image blackRookH;
+    private Image blackKnightB;
+    private Image blackKnightG;
+    private Image blackBishopC;
+    private Image blackBishopF;
+    private Image blackQueen;
+    private Image blackKing;
+    private Image blackPawnA;
+    private Image blackPawnB;
+    private Image blackPawnC;
+    private Image blackPawnD;
+    private Image blackPawnE;
+    private Image blackPawnF;
+    private Image blackPawnG;
+    private Image blackPawnH;
 
     public BoardPane(){
 
@@ -22,54 +63,61 @@ public class BoardPane extends Pane {
 
         // as the images change depending on the specific  piece, each button needs its own imageview
 
-        Image whiteRookA = new Image("whiterook.png");
-        Image whiteRookH = new Image("whiterook.png");
-        Image whiteKnightB = new Image("whiteknight.png");
-        Image whiteKnightG = new Image("whiteknight.png");
-        Image whiteBishopC = new Image("whitebishop.png");
-        Image whiteBishopF = new Image("whitebishop.png");
-        Image whiteQueen = new Image("whitequeen.png");
-        Image whiteKing = new Image("whiteking.png");
-        Image whitePawnA = new Image("whitepawn.png");
-        Image whitePawnB = new Image("whitepawn.png");
-        Image whitePawnC = new Image("whitepawn.png");
-        Image whitePawnD = new Image("whitepawn.png");
-        Image whitePawnE = new Image("whitepawn.png");
-        Image whitePawnF = new Image("whitepawn.png");
-        Image whitePawnG = new Image("whitepawn.png");
-        Image whitePawnH = new Image("whitepawn.png");
+        whiteRookA = new Image("whiterook.png");
+        whiteRookH = new Image("whiterook.png");
+        whiteKnightB = new Image("whiteknight.png");
+        whiteKnightG = new Image("whiteknight.png");
+        whiteBishopC = new Image("whitebishop.png");
+        whiteBishopF = new Image("whitebishop.png");
+        whiteQueen = new Image("whitequeen.png");
+        whiteKing = new Image("whiteking.png");
+        whitePawnA = new Image("whitepawn.png");
+        whitePawnB = new Image("whitepawn.png");
+        whitePawnC = new Image("whitepawn.png");
+        whitePawnD = new Image("whitepawn.png");
+        whitePawnE = new Image("whitepawn.png");
+        whitePawnF = new Image("whitepawn.png");
+        whitePawnG = new Image("whitepawn.png");
+        whitePawnH = new Image("whitepawn.png");
 
-
-        Image blackRookA = new Image("blackrook.png");
-        Image blackRookH = new Image("blackrook.png");
-        Image blackKnightB = new Image("blackknight.png");
-        Image blackKnightG = new Image("blackknight.png");
-        Image blackBishopC = new Image("blackbishop.png");
-        Image blackBishopF = new Image("blackbishop.png");
-        Image blackQueen = new Image("blackqueen.png");
-        Image blackKing = new Image("blackking.png");
-        Image blackPawnA = new Image("blackpawn.png");
-        Image blackPawnB = new Image("blackpawn.png");
-        Image blackPawnC = new Image("blackpawn.png");
-        Image blackPawnD = new Image("blackpawn.png");
-        Image blackPawnE = new Image("blackpawn.png");
-        Image blackPawnF = new Image("blackpawn.png");
-        Image blackPawnG = new Image("blackpawn.png");
-        Image blackPawnH = new Image("blackpawn.png");
+        blackRookA = new Image("blackrook.png");
+        blackRookH = new Image("blackrook.png");
+        blackKnightB = new Image("blackknight.png");
+        blackKnightG = new Image("blackknight.png");
+        blackBishopC = new Image("blackbishop.png");
+        blackBishopF = new Image("blackbishop.png");
+        blackQueen = new Image("blackqueen.png");
+        blackKing = new Image("blackking.png");
+        blackPawnA = new Image("blackpawn.png");
+        blackPawnB = new Image("blackpawn.png");
+        blackPawnC = new Image("blackpawn.png");
+        blackPawnD = new Image("blackpawn.png");
+        blackPawnE = new Image("blackpawn.png");
+        blackPawnF = new Image("blackpawn.png");
+        blackPawnG = new Image("blackpawn.png");
+        blackPawnH = new Image("blackpawn.png");
 
 
         Color lightgray = Color.LIGHTGRAY;
         Color blue = Color.DARKCYAN;
 
         buttons = new ToggleButton[8][8];
+        circles = new Circle[8][8];
+
+        circleRadius = 8;
+        buttonSize = 95;
+
 
         for(int row = 0; row < rows; row++){
             for( int col = 0; col < cols; col++){
                 ToggleButton button = new ToggleButton(); // "" + (row*cols + col + 1)
 
-                button.setPrefSize(95,95);
+                Circle circle = new Circle(circleRadius, Color.TRANSPARENT); // Initially transparent
+
+                button.setPrefSize(buttonSize,buttonSize);
 
                 buttons[row][col] = button;
+                circles[row][col] = circle;
 
                 switch(row){
 
@@ -77,35 +125,51 @@ public class BoardPane extends Pane {
                         switch(col){
                             case 0:
                                 ImageView imageViewBRA = new ImageView(blackRookA);
-                                button.setGraphic(imageViewBRA);
+                                StackPane braStackPane = new StackPane();
+                                braStackPane.getChildren().addAll(imageViewBRA,circle);
+                                button.setGraphic(braStackPane);
                                 break;
                             case 1:
-                                ImageView imageViewBKB = new ImageView(blackKnightB);
-                                button.setGraphic(imageViewBKB);
+                                ImageView imageViewBNB = new ImageView(blackKnightB);
+                                StackPane bnbStackPane = new StackPane();
+                                bnbStackPane.getChildren().addAll(imageViewBNB,circle);
+                                button.setGraphic(bnbStackPane);
                                 break;
                             case 2:
                                 ImageView imageViewBBC = new ImageView(blackBishopC);
-                                button.setGraphic(imageViewBBC);
+                                StackPane bbcStackPane = new StackPane();
+                                bbcStackPane.getChildren().addAll(imageViewBBC,circle);
+                                button.setGraphic(bbcStackPane);
                                 break;
                             case 3:
                                 ImageView imageViewBQ = new ImageView(blackQueen);
-                                button.setGraphic(imageViewBQ);
+                                StackPane bqStackPane = new StackPane();
+                                bqStackPane.getChildren().addAll(imageViewBQ,circle);
+                                button.setGraphic(bqStackPane);
                                 break;
                             case 4:
                                 ImageView imageViewBK = new ImageView(blackKing);
-                                button.setGraphic(imageViewBK);
+                                StackPane bkStackPane = new StackPane();
+                                bkStackPane.getChildren().addAll(imageViewBK,circle);
+                                button.setGraphic(bkStackPane);
                                 break;
                             case 5:
                                 ImageView imageViewBBF = new ImageView(blackBishopF);
-                                button.setGraphic(imageViewBBF);
+                                StackPane bbfStackPane = new StackPane();
+                                bbfStackPane.getChildren().addAll(imageViewBBF,circle);
+                                button.setGraphic(bbfStackPane);
                                 break;
                             case 6:
-                                ImageView imageViewBKG = new ImageView(blackKnightG);
-                                button.setGraphic(imageViewBKG);
+                                ImageView imageViewBNG = new ImageView(blackKnightG);
+                                StackPane bngStackPane = new StackPane();
+                                bngStackPane.getChildren().addAll(imageViewBNG,circle);
+                                button.setGraphic(bngStackPane);
                                 break;
                             case 7:
                                 ImageView imageViewBRH = new ImageView(blackRookH);
-                                button.setGraphic(imageViewBRH);
+                                StackPane brhStackPane = new StackPane();
+                                brhStackPane.getChildren().addAll(imageViewBRH,circle);
+                                button.setGraphic(brhStackPane);
                                 break;
                         }
                         break;
@@ -114,71 +178,103 @@ public class BoardPane extends Pane {
                         switch(col){
                             case 0:
                                 ImageView imageViewBPA = new ImageView(blackPawnA);
-                                button.setGraphic(imageViewBPA);
+                                StackPane abStackPane = new StackPane();
+                                abStackPane.getChildren().addAll(imageViewBPA,circle);
+                                button.setGraphic(abStackPane);
                                 break;
                             case 1:
                                 ImageView imageViewBPB = new ImageView(blackPawnB);
-                                button.setGraphic(imageViewBPB);
+                                StackPane bbStackPane = new StackPane();
+                                bbStackPane.getChildren().addAll(imageViewBPB,circle);
+                                button.setGraphic(bbStackPane);
                                 break;
                             case 2:
                                 ImageView imageViewBPC = new ImageView(blackPawnC);
-                                button.setGraphic(imageViewBPC);
+                                StackPane cbStackPane = new StackPane();
+                                cbStackPane.getChildren().addAll(imageViewBPC,circle);
+                                button.setGraphic(cbStackPane);
                                 break;
                             case 3:
                                 ImageView imageViewBPD = new ImageView(blackPawnD);
-                                button.setGraphic(imageViewBPD);
+                                StackPane dbStackPane = new StackPane();
+                                dbStackPane.getChildren().addAll(imageViewBPD,circle);
+                                button.setGraphic(dbStackPane);
                                 break;
                             case 4:
                                 ImageView imageViewBPE = new ImageView(blackPawnE);
-                                button.setGraphic(imageViewBPE);
+                                StackPane ebStackPane = new StackPane();
+                                ebStackPane.getChildren().addAll(imageViewBPE,circle);
+                                button.setGraphic(ebStackPane);
                                 break;
                             case 5:
                                 ImageView imageViewBPF = new ImageView(blackPawnF);
-                                button.setGraphic(imageViewBPF);
+                                StackPane fbStackPane = new StackPane();
+                                fbStackPane.getChildren().addAll(imageViewBPF,circle);
+                                button.setGraphic(fbStackPane);
                                 break;
                             case 6:
                                 ImageView imageViewBPG = new ImageView(blackPawnG);
-                                button.setGraphic(imageViewBPG);
+                                StackPane gbStackPane = new StackPane();
+                                gbStackPane.getChildren().addAll(imageViewBPG,circle);
+                                button.setGraphic(gbStackPane);
                                 break;
                             case 7:
                                 ImageView imageViewBPH = new ImageView(blackPawnH);
-                                button.setGraphic(imageViewBPH);
+                                StackPane hbStackPane = new StackPane();
+                                hbStackPane.getChildren().addAll(imageViewBPH,circle);
+                                button.setGraphic(hbStackPane);
                                 break;
                         }
                         break;
 
-                    case 6:
+                    case 6: // still must change to imageview
                         switch(col){
                             case 0:
                                 ImageView imageViewWPA = new ImageView(whitePawnA);
+                                StackPane wpaStackPane = new StackPane();
+                                wpaStackPane.getChildren().addAll(imageViewWPA,circle);
                                 button.setGraphic(imageViewWPA);
                                 break;
                             case 1:
                                 ImageView imageViewWPB = new ImageView(whitePawnB);
+                                StackPane wpbStackPane = new StackPane();
+                                wpbStackPane.getChildren().addAll(imageViewWPB,circle);
                                 button.setGraphic(imageViewWPB);
                                 break;
                             case 2:
                                 ImageView imageViewWPC = new ImageView(whitePawnC);
+                                StackPane wpcStackPane = new StackPane();
+                                wpcStackPane.getChildren().addAll(imageViewWPC,circle);
                                 button.setGraphic(imageViewWPC);
                                 break;
                             case 3:
                                 ImageView imageViewWPD = new ImageView(whitePawnD);
+                                StackPane wpdStackPane = new StackPane();
+                                wpdStackPane.getChildren().addAll(imageViewWPD,circle);
                                 button.setGraphic(imageViewWPD);
                                 break;
                             case 4:
                                 ImageView imageViewWPE = new ImageView(whitePawnE);
+                                StackPane wpeStackPane = new StackPane();
+                                wpeStackPane.getChildren().addAll(imageViewWPE,circle);
                                 button.setGraphic(imageViewWPE);
                                 break;
                             case 5:
                                 ImageView imageViewWPF = new ImageView(whitePawnF);
+                                StackPane wpfStackPane = new StackPane();
+                                wpfStackPane.getChildren().addAll(imageViewWPF,circle);
                                 button.setGraphic(imageViewWPF);
                                 break;
                             case 6:
                                 ImageView imageViewWPG = new ImageView(whitePawnG);
+                                StackPane wpgStackPane = new StackPane();
+                                wpgStackPane.getChildren().addAll(imageViewWPG,circle);
                                 button.setGraphic(imageViewWPG);
                                 break;
                             case 7:
                                 ImageView imageViewWPH = new ImageView(whitePawnH);
+                                StackPane wphStackPane = new StackPane();
+                                wphStackPane.getChildren().addAll(imageViewWPH,circle);
                                 button.setGraphic(imageViewWPH);
                                 break;
                         }
@@ -189,51 +285,80 @@ public class BoardPane extends Pane {
                         switch(col){
                             case 0:
                                 ImageView imageViewWRA = new ImageView(whiteRookA);
-                                button.setGraphic(imageViewWRA);
+                                StackPane wraStackPane = new StackPane();
+                                wraStackPane.getChildren().addAll(imageViewWRA,circle);
+                                button.setGraphic(wraStackPane);
                                 break;
                             case 1:
-                                ImageView imageViewWKB = new ImageView(whiteKnightB);
-                                button.setGraphic(imageViewWKB);
+                                ImageView imageViewWNB = new ImageView(whiteKnightB);
+                                StackPane wnbStackPane = new StackPane();
+                                wnbStackPane.getChildren().addAll(imageViewWNB,circle);
+                                button.setGraphic(wnbStackPane);
                                 break;
                             case 2:
                                 ImageView imageViewWBC = new ImageView(whiteBishopC);
-                                button.setGraphic(imageViewWBC);
+                                StackPane wbcStackPane = new StackPane();
+                                wbcStackPane.getChildren().addAll(imageViewWBC,circle);
+                                button.setGraphic(wbcStackPane);
                                 break;
                             case 3:
                                 ImageView imageViewWQ = new ImageView(whiteQueen);
-                                button.setGraphic(imageViewWQ);
+                                StackPane wqStackPane = new StackPane();
+                                wqStackPane.getChildren().addAll(imageViewWQ,circle);
+                                button.setGraphic(wqStackPane);
                                 break;
                             case 4:
                                 ImageView imageViewWK = new ImageView(whiteKing);
-                                button.setGraphic(imageViewWK);
+                                StackPane wkStackPane = new StackPane();
+                                wkStackPane.getChildren().addAll(imageViewWK,circle);
+                                button.setGraphic(wkStackPane);
                                 break;
                             case 5:
                                 ImageView imageViewWBF = new ImageView(whiteBishopF);
-                                button.setGraphic(imageViewWBF);
+                                StackPane wbfStackPane = new StackPane();
+                                wbfStackPane.getChildren().addAll(imageViewWBF,circle);
+                                button.setGraphic(wbfStackPane);
                                 break;
                             case 6:
-                                ImageView imageViewWKG = new ImageView(whiteKnightG);
-                                button.setGraphic(imageViewWKG);
+                                ImageView imageViewWNG = new ImageView(whiteKnightG);
+                                StackPane wngStackPane = new StackPane();
+                                wngStackPane.getChildren().addAll(imageViewWNG,circle);
+                                button.setGraphic(wngStackPane);
                                 break;
                             case 7:
                                 ImageView imageViewWRH = new ImageView(whiteRookH);
-                                button.setGraphic(imageViewWRH);
+                                StackPane wrhStackPane = new StackPane();
+                                wrhStackPane.getChildren().addAll(imageViewWRH,circle);
+                                button.setGraphic(wrhStackPane);
                                 break;
                         }
                         break;
 
+
+                    default: // for the empty spaces
+
+                        ImageView blankView = new ImageView();
+                        StackPane blankStackPane = new StackPane();
+                        blankStackPane.getChildren().addAll(blankView,circle);
+                        button.setGraphic(blankStackPane);
 
 
                 }
 
 
                 if((row + col) % 2 == 0){
-                    button.setStyle("-fx-background-color: " + toRgbString(lightgray) + ";");
+                    button.setStyle("-fx-background-color: rgb(238,238,210);");
+
+
+
                 } else{
-                    button.setStyle("-fx-background-color: " + toRgbString(blue));
+                    //button.setStyle("-fx-background-color: " + toRgbString(blue));
+                    button.setStyle("-fx-background-color: rgb(118,150,86);");
+
+
+//                    button.setStyle("-fx-background-color: blue;");
+
                 }
-
-
 
                 gridPane.add(button,col,row);
             }
@@ -241,18 +366,73 @@ public class BoardPane extends Pane {
 
         getChildren().add(gridPane);
     }
-
-//    private void buttonEvents(ToggleButton toggleButton, int row, int col){
-//        int[] buttonCoordinates = new int[2];
-//        buttonCoordinates[0] = row; // save the coordinates for later
-//        buttonCoordinates[1] = col;
-//        toggleButton.setOnMousePressed(event ->{
-//            System.out.println("button: (" + row + "," + col + ")");
-//
-//        });
-//    }
-
     public ToggleButton[][] getToggleButtons(){return buttons;}
+    public Circle[][] getCircles(){return circles;}
+
+    public void changeGraphic(Game model, Piece piece, int[] square){
+            ImageView changedView;
+            if(piece instanceof Pawn) { // loop through 4th or 5th rank to see if en passant applies
+                if (piece.colour.equals("White")) {
+                    if(model.blackPawnJustMovedTwo(new int[]{square[0]+1,square[1]})){
+                        // en passant applies
+                        ImageView passantView = new ImageView();
+                        StackPane blankPane = new StackPane();
+                        blankPane.getChildren().addAll(passantView, circles[piece.currentSquare[0]+1][piece.currentSquare[1]]);
+                        buttons[piece.currentSquare[0]+1][piece.currentSquare[1]].setGraphic(blankPane);
+                    }
+                    changedView = new ImageView(whitePawnA);
+                } else {
+                    if(model.whitePawnJustMovedTwo(new int[]{square[0]-1,square[1]})){
+                        // en passant applies
+                        ImageView passantView = new ImageView();
+                        StackPane blankPane = new StackPane();
+                        blankPane.getChildren().addAll(passantView, circles[piece.currentSquare[0]-1][piece.currentSquare[1]]);
+                        buttons[piece.currentSquare[0]-1][piece.currentSquare[1]].setGraphic(blankPane);
+                    }
+                    changedView = new ImageView(blackPawnA);
+                }
+            } else if (piece instanceof Knight) {
+                if (piece.colour.equals("White")) {
+                    changedView = new ImageView(whiteKnightB);
+                } else{
+                    changedView = new ImageView(blackKnightB);
+                }
+            } else if (piece instanceof Bishop) {
+                if(piece.colour.equals("White")) {
+                    changedView = new ImageView(whiteBishopC);
+                } else{
+                    changedView = new ImageView(blackBishopC);
+                }
+            } else if (piece instanceof Rook) {
+                if(piece.colour.equals("White")) {
+                    changedView = new ImageView(whiteRookA);
+                } else{
+                    changedView = new ImageView(blackRookA);
+                }
+            } else if (piece instanceof Queen) {
+                if(piece.colour.equals("White")) {
+                    changedView = new ImageView(whiteQueen);
+                } else {
+                    changedView = new ImageView(blackQueen);
+                }
+            } else { // king case
+                if(piece.colour.equals("White")) {
+                    changedView = new ImageView(whiteKing);
+                } else{
+                    changedView = new ImageView(blackKing);
+                }
+            }
+
+                StackPane wqStackPane = new StackPane();
+                wqStackPane.getChildren().addAll(changedView, circles[square[0]][square[1]]);
+                buttons[square[0]][square[1]].setGraphic(wqStackPane);
+
+                ImageView blankView = new ImageView();
+                StackPane blankPane = new StackPane();
+                blankPane.getChildren().addAll(blankView, circles[piece.currentSquare[0]][piece.currentSquare[1]]);
+                buttons[piece.currentSquare[0]][piece.currentSquare[1]].setGraphic(blankPane);
+            }
+
 
     private String toRgbString(Color color){
         return String.format("#%02X%02X%02X",

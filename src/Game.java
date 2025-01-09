@@ -80,6 +80,7 @@ public class Game {
 
 
     public Game(){
+        moveNumber = 0;
         promotionCount = 0;
 
         aPawnWhite = new Pawn("P","White", new int[]{6,0},new int[]{6,0},new ArrayList<int[]>(Arrays.asList(new int[]{5,0}, new int[]{4,0})));
@@ -257,6 +258,11 @@ public class Game {
 
     public ArrayList<Piece> getBlackPieces(){
         return blackPieces;
+    }
+
+    public int getMoveNumber(){return moveNumber;}
+    public void addMoveNumber(int addition){
+        moveNumber += addition;
     }
 
     public void addWhitePiece(Piece piece){
@@ -613,5 +619,7 @@ public class Game {
 
         return "false";
     }
+
+
 
 }

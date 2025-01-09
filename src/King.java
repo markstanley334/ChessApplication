@@ -1707,7 +1707,6 @@ public class King extends Piece {
     }
 
     public boolean getIsInCheck() {
-        return false;
-//        return isInCheck;
+        return isInCheck;
     }
 }

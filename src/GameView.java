@@ -40,6 +40,12 @@ public class GameView extends Pane {
         setPrefSize(1350,850);
     }
     public void update(Game model, boolean reset){
+            if(reset){
+                System.out.println("resetting board");
+            } else{
 
+            }
     }
+
+
 }
