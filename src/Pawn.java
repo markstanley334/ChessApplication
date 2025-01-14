@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Pawn extends Piece {
 
@@ -28,7 +27,6 @@ public class Pawn extends Piece {
                 captureDirections.add(new int[]{2, currentSquare[1] + 1});
                 captureDirections.add(new int[]{2, currentSquare[1] - 1});
             }
-
         }
     }
 
@@ -170,8 +168,6 @@ public class Pawn extends Piece {
         }
     }
 
-
-    // first find if square ahead is blocked
 
     // MAKE MOVE() FUNCTION WITH PROMOTION and with en passant
 

@@ -471,27 +471,8 @@ public class Game {
         return boardCopyCount;
     }
 
-
     public void printBoard(){
         for(Piece[] rank: Board){
-            System.out.print("\n");
-            for(Piece piece: rank){
-                if(piece == null){
-                    System.out.print("_");
-                } else{
-                    if(piece.colour.equals("White")){
-                        System.out.print(piece.name);
-                    } else {
-                        System.out.print(ANSI_YELLOW + piece.name + ANSI_RESET);
-                    }
-                }
-            }
-        }
-        System.out.println("");
-    }
-
-    public void printBoard(Piece[][] board){
-        for(Piece[] rank: board){
             System.out.print("\n");
             for(Piece piece: rank){
                 if(piece == null){

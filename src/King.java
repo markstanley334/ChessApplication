@@ -472,7 +472,7 @@ public class King extends Piece {
                 } else {
 
 
-                    Integer c = 0;
+                    int c = 0;
                     System.out.println("Should be here");
                     // bottom middle
                     int[] square = new int[]{7, currentSquare[1] + 1};
@@ -483,7 +483,7 @@ public class King extends Piece {
                     }
 
                     for(int[] spot: availableSquares){
-                        System.out.println(Arrays.toString(spot) + c.toString());
+                        System.out.println(Arrays.toString(spot) + Integer.toString(c));
                     }
                     c++;
 
@@ -523,7 +523,7 @@ public class King extends Piece {
                     }
 
                     for(int[] spot: availableSquares){
-                        System.out.println(Arrays.toString(spot) + c.toString());
+                        System.out.println(Arrays.toString(spot) + Integer.toString(c));
                     }
                     c++;
                 }
