@@ -15,6 +15,8 @@ public class GameView extends Pane {
     private ListView<String> whiteMoves;
     private ListView<String> blackMoves;
 
+    private HBox hbox;
+
     public RightPane getFbButtonPane(){
         return rightPane;
     }
@@ -22,7 +24,7 @@ public class GameView extends Pane {
     public BoardPane getBoardGridPane(){return boardGridPane;}
     public GameView(){
 
-        HBox hbox = new HBox(20);
+        hbox = new HBox(20);
 
 
         Label label1 = new Label("Mark Stanley: Chess Application");
@@ -42,6 +44,10 @@ public class GameView extends Pane {
     public void update(Game model, boolean reset){
             if(reset){
                 System.out.println("resetting board");
+                BoardPane newPane = new BoardPane();
+                hbox.getChildren().remove(boardGridPane);
+                hbox.getChildren().addAll(newPane);
+                getChildren().addAll(hbox);
             } else{
 
             }

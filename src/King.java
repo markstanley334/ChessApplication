@@ -19,65 +19,30 @@ public class King extends Piece {
     // only change to move function is to move the rook when castling
 
     public void move(int[] newSquare, Game game) { // this will move a piece to a new square (could be a capture)
-
-
         if (Arrays.equals(newSquare, new int[]{7, 2}) && Arrays.equals(currentSquare, new int[]{7, 4})) {
             // then we are white castling queenside
             previousSquare = currentSquare;
             currentSquare = newSquare;
             game.setSquare(null, previousSquare);
             game.setSquare(this, newSquare); // king has moved 2
-
-            // now move rook
-            Piece aRook = game.getSquare(new int[]{7, 0});
-
-            aRook.previousSquare = aRook.currentSquare;
-            aRook.currentSquare = new int[]{7, 3};
-            game.setSquare(null, aRook.previousSquare);
-            game.setSquare(aRook, new int[]{7, 3});
-
         } else if (Arrays.equals(newSquare, new int[]{7, 6}) && Arrays.equals(currentSquare, new int[]{7, 4})) {
             // then we are white castling kingside
             previousSquare = currentSquare;
             currentSquare = newSquare;
             game.setSquare(null, previousSquare);
             game.setSquare(this, newSquare); // king has moved 2
-
-            // now move rook
-            Piece hRook = game.getSquare(new int[]{7, 7});
-
-            hRook.previousSquare = hRook.currentSquare;
-            hRook.currentSquare = new int[]{7, 5};
-            game.setSquare(null, hRook.previousSquare);
-            game.setSquare(hRook, new int[]{7, 5});
         } else if (Arrays.equals(newSquare, new int[]{0, 2}) && Arrays.equals(currentSquare, new int[]{0, 4})) {
             // then we are white castling queenside
             previousSquare = currentSquare;
             currentSquare = newSquare;
             game.setSquare(null, previousSquare);
             game.setSquare(this, newSquare); // king has moved 2
-
-            // now move rook
-            Piece aRook = game.getSquare(new int[]{0, 0});
-
-            aRook.previousSquare = aRook.currentSquare;
-            aRook.currentSquare = new int[]{0, 3};
-            game.setSquare(null, aRook.previousSquare);
-            game.setSquare(aRook, new int[]{0, 3});
         } else if (Arrays.equals(newSquare, new int[]{0, 6}) && Arrays.equals(currentSquare, new int[]{0, 4})) {
             // then we are white castling kingside
             previousSquare = currentSquare;
             currentSquare = newSquare;
             game.setSquare(null, previousSquare);
             game.setSquare(this, newSquare); // king has moved 2
-
-            // now move rook
-            Piece hRook = game.getSquare(new int[]{0, 7});
-
-            hRook.previousSquare = hRook.currentSquare;
-            hRook.currentSquare = new int[]{0, 5};
-            game.setSquare(null, hRook.previousSquare);
-            game.setSquare(hRook, new int[]{0, 5});
         } else {
 
             if (game.getBoard()[newSquare[0]][newSquare[1]] == null) {
@@ -85,9 +50,7 @@ public class King extends Piece {
                 currentSquare = newSquare;
                 game.setSquare(null, previousSquare);
                 game.setSquare(this, newSquare);
-
             } else {
-
                 game.removePiece(newSquare); // remove the captured piece from their respective piece list.
                 previousSquare = currentSquare;
                 currentSquare = newSquare;
@@ -103,7 +66,6 @@ public class King extends Piece {
         availableSquares.clear();
         checkingPieces = 0;
         isInCheck = false;
-
 
         // check in queen directions to pin own pieces (looking for bishop or queen on diagonal and rook or queen on straight files)
         // also use this to see if king is in check

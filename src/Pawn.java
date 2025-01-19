@@ -37,14 +37,13 @@ public class Pawn extends Piece {
         if (colour.equals("White")) {
 
             if (currentSquare[0] == 6) { // this is for moving
-                if (game.hasNoPiece(new int[]{4, currentSquare[1]})) {
+                if (game.hasNoPiece(new int[]{4, currentSquare[1]}) && game.hasNoPiece(new int[]{5,currentSquare[1]})) {
                     availableSquares.add(new int[]{4, currentSquare[1]});
                 }
             }
                 if (game.hasNoPiece(new int[]{currentSquare[0] - 1, currentSquare[1]})) {
                     availableSquares.add(new int[]{currentSquare[0] - 1, currentSquare[1]});
                 }
-
 
             // next we do captures (also add to captureDirections ArrayList)
 
@@ -102,7 +101,7 @@ public class Pawn extends Piece {
 
 
             if (currentSquare[0] == 1) { // this is for moving
-                if (game.hasNoPiece(new int[]{3, currentSquare[1]})) {
+                if (game.hasNoPiece(new int[]{3, currentSquare[1]}) && game.hasNoPiece(new int[]{2,currentSquare[1]})) {
                     availableSquares.add(new int[]{3, currentSquare[1]});
                 }
             }
@@ -170,7 +169,6 @@ public class Pawn extends Piece {
 
 
     // MAKE MOVE() FUNCTION WITH PROMOTION and with en passant
-
     // for en passant, you want to simply check if the move made was diagonal and there was no piece on the square.
 
     public Piece promote(int[] square, Game game, int pieceType) {

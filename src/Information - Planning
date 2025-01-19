@@ -115,6 +115,29 @@ When the application is launched, a new game will be created
 
 
 
+CHECKLIST:
+
+classes:
+
+Bishop - Done
+Queen - Done
+Rook - Done
+Knight - Done
+Pawn - Not done
+-> piece in front of pawn can still move 2 (FIXED)
+-> en passant needs to remove imageview
+-> promotion needs to create new imageview
+-> after castling turn error (FIXED)
+
+
+King - probably not done -> check, checkmate and stalemate need to work
+
+
+
+
+
+
+
 
 
 

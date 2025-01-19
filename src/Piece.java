@@ -60,6 +60,9 @@ public abstract class Piece {
         availableSquares.add(newSquare);
     }
 
+    public int[] getCurrentSquare(){
+        return currentSquare;
+    }
 
     public void updateDiagonals(Game game){
 

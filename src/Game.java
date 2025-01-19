@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Objects;
+
 
 public class Game {
 
@@ -294,42 +293,30 @@ public class Game {
     public boolean hasWhitePiece(int[] square){
         if(Board[square[0]][square[1]] == null){
             return false;
-        } else if(Board[square[0]][square[1]].colour.equals("White")){
-            return true;
-        } else{
-            return false;
-        }
+        } else return Board[square[0]][square[1]].colour.equals("White");
     }
 
     public boolean hasBlackPiece(int[] square){
         if(Board[square[0]][square[1]] == null){
             return false;
-        } else if(Board[square[0]][square[1]].colour.equals("Black")){
-            return true;
-        } else{
-            return false;
-        }
+        } else return Board[square[0]][square[1]].colour.equals("Black");
     }
 
     public boolean hasNoPiece(int[] square){
-        if(Board[square[0]][square[1]] == null){
-            return true;
-        } return false;
+        return Board[square[0]][square[1]] == null;
     }
 
     public boolean whitePawnJustMovedTwo(int[] square){ // this function is for the en passant rule
         if(Board[square[0]][square[1]] instanceof Pawn && Board[square[0]][square[1]].colour.equals("White")){ // if the square is a pawn & the pawn is white
-                if(Arrays.equals(Board[square[0]][square[1]].previousSquare, new int[]{6, square[1]})){ // the previous square was a starting square
-                    return true;
-                }
+            // the previous square was a starting square
+            return Arrays.equals(Board[square[0]][square[1]].previousSquare, new int[]{6, square[1]});
             }
         return false;
     }
     public boolean blackPawnJustMovedTwo(int[] square){ // this function is for the en passant rule
         if(Board[square[0]][square[1]] instanceof Pawn && Board[square[0]][square[1]].colour.equals("Black")){ // if the square is a pawn & the pawn is white
-            if(Arrays.equals(Board[square[0]][square[1]].previousSquare, new int[]{1, square[1]})){ // the previous square was a starting square
-                return true;
-            }
+            // the previous square was a starting square
+            return Arrays.equals(Board[square[0]][square[1]].previousSquare, new int[]{1, square[1]});
         }
         return false;
     }
@@ -521,86 +508,44 @@ public class Game {
         // finish looping. If only 1 shared movement, alter this movement
         // if 2 shared movements state the previous square using the arrayToAlgebraicNotation() function
 
-        if(piece.colour.equals("White")){
-
         if(getSquare(newSquare) == null){ // this is NOT a capture (except for en passant)
 
-            if(piece instanceof Pawn){
-                // pawn either is pushing forward here or promoting
-                String newSquareString = arrayToAlgebraicNotation(newSquare);
-
-
-            } else if(piece instanceof Knight){
-
-
-            } else if(piece instanceof Bishop){
-
-            } else if(piece instanceof Rook){
-
-            } else if(piece instanceof Queen){
-
-            } else{
-                // this is a king
+            switch (piece) {
+                case Pawn pawn -> {
+                    // pawn either is pushing forward here or promoting
+                    String newSquareString = arrayToAlgebraicNotation(newSquare);
+                }
+                case Knight knight -> {
+                }
+                case Bishop bishop -> {
+                }
+                case Rook rook -> {
+                }
+                case Queen queen -> {
+                }
+                default -> {
+                    // this is a king
+                }
             }
 
         } else{
             // this IS a capture
-            if(piece instanceof Pawn){
-
-            }else if(piece instanceof Knight){
-
-            } else if(piece instanceof Bishop){
-
-            } else if(piece instanceof Rook){
-
-            } else if(piece instanceof Queen){
-
-            } else{
-                // this is a king
-            }
-        } } else{
-            // here colour is black
-            if(getSquare(newSquare) == null){ // this is NOT a capture (except for en passant)
-
-                if(piece instanceof Pawn){
-                    // pawn either is pushing forward here or promoting
-                    String newSquareString = arrayToAlgebraicNotation(newSquare);
-
-
-                } else if(piece instanceof Knight){
-
-
-                } else if(piece instanceof Bishop){
-
-                } else if(piece instanceof Rook){
-
-                } else if(piece instanceof Queen){
-
-                } else{
-                    // this is a king
+            switch (piece) {
+                case Pawn pawn -> {
                 }
-
-            } else{
-                // this IS a capture
-                if(piece instanceof Pawn){
-
-                }else if(piece instanceof Knight){
-
-                } else if(piece instanceof Bishop){
-
-                } else if(piece instanceof Rook){
-
-                } else if(piece instanceof Queen){
-
-                } else{
+                case Knight knight -> {
+                }
+                case Bishop bishop -> {
+                }
+                case Rook rook -> {
+                }
+                case Queen queen -> {
+                }
+                default -> {
                     // this is a king
                 }
             }
         }
-
         return "false";
     }
-
-
-
 }
