@@ -1,7 +1,15 @@
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -172,6 +180,7 @@ public class GameApplication extends Application {
                                                     // here we promote the pawn - must first ask user what they want to promote to
 
                                                 } else {
+                                                    showPromotionWindow("White");
                                                     view.getBoardGridPane().changeGraphic(model, whitePiece, buttonSquare); // change image
                                                     whitePiece.move(buttonSquare, model);
                                                 }
@@ -369,6 +378,91 @@ public class GameApplication extends Application {
             }
         }
     }
+
+
+    private void showPromotionWindow(String colour){
+        Stage promotionStage = new Stage();
+
+        Button knightButton = new Button();
+        Button bishopButton = new Button();
+        Button rookButton = new Button();
+        Button queenButton = new Button();
+
+        if(colour.equals("White")){
+            // make the images
+            Image whiteRook = new Image("whiterook.png");
+            Image whiteKnight = new Image("whiteknight.png");
+            Image whiteBishop = new Image("whitebishop.png");
+            Image whiteQueen = new Image("whitequeen.png");
+
+            ImageView imageViewRook = new ImageView(whiteRook);
+            rookButton.setGraphic(imageViewRook);
+
+            ImageView imageViewKnight = new ImageView(whiteKnight);
+            knightButton.setGraphic(imageViewKnight);
+
+            ImageView imageViewBishop = new ImageView(whiteBishop);
+            bishopButton.setGraphic(imageViewBishop);
+
+            ImageView imageViewQueen = new ImageView(whiteQueen);
+            queenButton.setGraphic(imageViewQueen);
+
+        } else{
+            Image blackRook = new Image("blackrook.png");
+            Image blackKnight = new Image("blackknight.png");
+            Image blackBishop = new Image("blackbishop.png");
+            Image blackQueen = new Image("blackqueen.png");
+
+            ImageView imageViewRook = new ImageView(blackRook);
+            rookButton.setGraphic(imageViewRook);
+
+            ImageView imageViewKnight = new ImageView(blackKnight);
+            knightButton.setGraphic(imageViewKnight);
+
+            ImageView imageViewBishop = new ImageView(blackBishop);
+            bishopButton.setGraphic(imageViewBishop);
+
+            ImageView imageViewQueen = new ImageView(blackQueen);
+            queenButton.setGraphic(imageViewQueen);
+        }
+
+        knightButton.setOnAction(actionEvent -> {
+            // make the knight
+            promotionStage.close(); // close the window at the end
+        });
+
+        bishopButton.setOnAction(actionEvent -> {
+            // make the bishop
+            promotionStage.close();
+        });
+
+        rookButton.setOnAction(actionEvent -> {
+            // make the rook
+
+            promotionStage.close();
+        });
+
+        queenButton.setOnAction(actionEvent ->{
+            // make the queen
+
+
+            promotionStage.close();
+        });
+
+        HBox promotionLayout = new HBox();
+        promotionLayout.getChildren().addAll(knightButton,bishopButton,rookButton,queenButton);
+
+        promotionLayout.setAlignment(Pos.CENTER); // center the buttons
+
+        Scene promotionScene = new Scene(promotionLayout,400,100);
+
+        promotionStage.setTitle("Promoting Piece");
+        promotionStage.setScene(promotionScene);
+
+        promotionStage.show(); // display the window
+
+        }
+
 
     public static void main(String[] args) {
         launch(args); // Initialize/start

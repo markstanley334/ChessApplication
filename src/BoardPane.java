@@ -341,8 +341,6 @@ public class BoardPane extends Pane {
                         StackPane blankStackPane = new StackPane();
                         blankStackPane.getChildren().addAll(blankView,circle);
                         button.setGraphic(blankStackPane);
-
-
                 }
 
 
@@ -432,12 +430,4 @@ public class BoardPane extends Pane {
                 blankPane.getChildren().addAll(blankView, circles[piece.currentSquare[0]][piece.currentSquare[1]]);
                 buttons[piece.currentSquare[0]][piece.currentSquare[1]].setGraphic(blankPane);
             }
-
-
-//    private String toRgbString(Color color){
-//        return String.format("#%02X%02X%02X",
-//                (int) (color.getRed() * 255),
-//                (int) (color.getGreen() * 255),
-//                (int) (color.getBlue() * 255));
-//    }
 }
