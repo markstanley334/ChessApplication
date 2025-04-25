@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -178,9 +179,9 @@ public class GameApplication extends Application {
                                             if(whitePiece instanceof Pawn){
                                                 if(square[0] == 0){
                                                     // here we promote the pawn - must first ask user what they want to promote to
-
+                                                    showPromotionWindow("White",view,model,buttonSquare,(Pawn)whitePiece);
+                                                    whitePiece.move(buttonSquare, model);
                                                 } else {
-                                                    showPromotionWindow("White");
                                                     view.getBoardGridPane().changeGraphic(model, whitePiece, buttonSquare); // change image
                                                     whitePiece.move(buttonSquare, model);
                                                 }
@@ -380,7 +381,7 @@ public class GameApplication extends Application {
     }
 
 
-    private void showPromotionWindow(String colour){
+    private void showPromotionWindow(String colour,GameView view,Game model,int[] square,Pawn pawn){
         Stage promotionStage = new Stage();
 
         Button knightButton = new Button();
@@ -428,21 +429,33 @@ public class GameApplication extends Application {
 
         knightButton.setOnAction(actionEvent -> {
             // make the knight
+            pawn.setPromoteNumber(3);
+            System.out.println(pawn.promoteNumber);
+
+            if(colour.equals("White")){
+                Knight dummyKnight = new Knight("","White",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
+                view.getBoardGridPane().changeGraphic(model, dummyKnight, square);
+            } else{
+
+            }
+
             promotionStage.close(); // close the window at the end
         });
 
         bishopButton.setOnAction(actionEvent -> {
             // make the bishop
+            pawn.setPromoteNumber(2);
             promotionStage.close();
         });
 
         rookButton.setOnAction(actionEvent -> {
             // make the rook
-
+            pawn.setPromoteNumber(1);
             promotionStage.close();
         });
 
         queenButton.setOnAction(actionEvent ->{
+            pawn.setPromoteNumber(0);
             // make the queen
 
 

@@ -4,10 +4,13 @@ public class Pawn extends Piece {
 
     private ArrayList<int[]> captureDirections;
 
+    int promoteNumber;
+
 
     public Pawn(String initName, String initColour, int[] initCurrentSquare, int[] initPreviousSquare, ArrayList<int[]> initAvailableSquares) {
         super(initName, initColour, initCurrentSquare, initPreviousSquare, initAvailableSquares);
         captureDirections = new ArrayList<>();
+        promoteNumber = 0;
 
         if (colour.equals("White")) { // check if pawn on edges
             if (currentSquare[1] == 0) {
@@ -171,10 +174,11 @@ public class Pawn extends Piece {
     // MAKE MOVE() FUNCTION WITH PROMOTION and with en passant
     // for en passant, you want to simply check if the move made was diagonal and there was no piece on the square.
 
-    public Piece promote(int[] square, Game game, int pieceType) {
+    public Piece promote(int[] square, Game game) {
         // for simplicity, if pieceType is 0, that means queen, 1 is rook, 2 is bishop, 3 is knight
 
-        if (pieceType == 0) {
+
+        if (promoteNumber == 0) {
             game.addPromotionCount();
             Queen promotedQueen = new Queen("Q" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedQueen, square); // add piece to the board
@@ -185,7 +189,7 @@ public class Pawn extends Piece {
                 game.addBlackPiece(promotedQueen);
             }
             return promotedQueen;
-        } else if(pieceType == 1){
+        } else if(promoteNumber == 1){
             game.addPromotionCount();
             Rook promotedRook = new Rook("R" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedRook, square);
@@ -196,7 +200,7 @@ public class Pawn extends Piece {
                 game.addBlackPiece(promotedRook);
             }
             return promotedRook;
-        } else if (pieceType == 2){
+        } else if (promoteNumber == 2){
             game.addPromotionCount();
             Bishop promotedBishop = new Bishop("B" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedBishop,square);
@@ -206,7 +210,7 @@ public class Pawn extends Piece {
                 game.addBlackPiece(promotedBishop);
             }
             return promotedBishop;
-        } else if (pieceType == 3){
+        } else if (promoteNumber == 3){
             game.addPromotionCount();
             Knight promotedKnight = new Knight("N" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedKnight, square);
@@ -229,9 +233,10 @@ public class Pawn extends Piece {
     public void move(int[] newSquare, Game game) {
         if (game.getBoard()[newSquare[0]][newSquare[1]] == null) {
             if(newSquare[0] == 0 || newSquare[0] == 7){
-                promote(newSquare,game,0); // this is queen by default
-                game.getSquare(newSquare).refresh(game);
-                game.removePiece(currentSquare);}
+                promote(newSquare,game); // this is queen by default
+                // game.getSquare(newSquare).refresh(game);
+                game.removePiece(currentSquare);
+                game.setSquare(null,currentSquare);}
             else{
 
                 if(currentSquare[1] != newSquare[1]) { // en passant occurance
@@ -256,9 +261,10 @@ public class Pawn extends Piece {
             game.removePiece(newSquare); // remove the captured piece from their respective piece list.
 
             if(newSquare[0] == 0 || newSquare[0] == 7){
-                promote(newSquare,game,0); // this is queen by default
-                game.getSquare(newSquare).refresh(game);
+                promote(newSquare,game); // this is queen by default
+                // game.getSquare(newSquare).refresh(game);
                 game.removePiece(currentSquare); // remove this piece
+                game.setSquare(null,currentSquare);
             } else{
                 // no promotion but capture
                 previousSquare = currentSquare;
@@ -268,5 +274,10 @@ public class Pawn extends Piece {
 
             }
         }
+    }
+
+
+    public void setPromoteNumber(int promoteNumber) {
+        this.promoteNumber = promoteNumber;
     }
 }

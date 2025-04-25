@@ -375,8 +375,8 @@ public class BoardPane extends Pane {
                         // en passant applies
                         ImageView passantView = new ImageView();
                         StackPane blankPane = new StackPane();
-                        blankPane.getChildren().addAll(passantView, circles[piece.currentSquare[0]+1][piece.currentSquare[1]]);
-                        buttons[piece.currentSquare[0]+1][piece.currentSquare[1]].setGraphic(blankPane);
+                        blankPane.getChildren().addAll(passantView, circles[square[0]+1][square[1]]);
+                        buttons[square[0]+1][square[1]].setGraphic(blankPane);
                     }
                     changedView = new ImageView(whitePawnA);
                 } else {
@@ -384,8 +384,8 @@ public class BoardPane extends Pane {
                         // en passant applies
                         ImageView passantView = new ImageView();
                         StackPane blankPane = new StackPane();
-                        blankPane.getChildren().addAll(passantView, circles[piece.currentSquare[0]-1][piece.currentSquare[1]]);
-                        buttons[piece.currentSquare[0]-1][piece.currentSquare[1]].setGraphic(blankPane);
+                        blankPane.getChildren().addAll(passantView, circles[square[0]-1][square[1]]);
+                        buttons[square[0]-1][square[1]].setGraphic(blankPane);
                     }
                     changedView = new ImageView(blackPawnA);
                 }
