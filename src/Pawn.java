@@ -177,8 +177,7 @@ public class Pawn extends Piece {
     public Piece promote(int[] square, Game game) {
         // for simplicity, if pieceType is 0, that means queen, 1 is rook, 2 is bishop, 3 is knight
 
-
-        if (promoteNumber == 0) {
+        if (promoteNumber == 0){
             game.addPromotionCount();
             Queen promotedQueen = new Queen("Q" + game.getPromotionCount(), colour, square, square, new ArrayList<int[]>());
             game.setSquare(promotedQueen, square); // add piece to the board
@@ -279,5 +278,9 @@ public class Pawn extends Piece {
 
     public void setPromoteNumber(int promoteNumber) {
         this.promoteNumber = promoteNumber;
+    }
+
+    public int getPromoteNumber(){
+        return promoteNumber;
     }
 }

@@ -180,7 +180,6 @@ public class GameApplication extends Application {
                                                 if(square[0] == 0){
                                                     // here we promote the pawn - must first ask user what they want to promote to
                                                     showPromotionWindow("White",view,model,buttonSquare,(Pawn)whitePiece);
-                                                    whitePiece.move(buttonSquare, model);
                                                 } else {
                                                     view.getBoardGridPane().changeGraphic(model, whitePiece, buttonSquare); // change image
                                                     whitePiece.move(buttonSquare, model);
@@ -309,6 +308,7 @@ public class GameApplication extends Application {
                                             if (blackPiece instanceof Pawn) {
                                                 if (square[0] == 7) {
                                                     // promoting pawn
+                                                    showPromotionWindow("Black",view,model,buttonSquare,(Pawn)blackPiece);
                                                 } else {
                                                     view.getBoardGridPane().changeGraphic(model, blackPiece, buttonSquare); // change image
                                                     blackPiece.move(buttonSquare, model);
@@ -430,13 +430,15 @@ public class GameApplication extends Application {
         knightButton.setOnAction(actionEvent -> {
             // make the knight
             pawn.setPromoteNumber(3);
-            System.out.println(pawn.promoteNumber);
 
             if(colour.equals("White")){
                 Knight dummyKnight = new Knight("","White",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
                 view.getBoardGridPane().changeGraphic(model, dummyKnight, square);
+                pawn.move(square,model);
             } else{
-
+                Knight dummyKnight = new Knight("","Black",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
+                view.getBoardGridPane().changeGraphic(model, dummyKnight, square);
+                pawn.move(square,model);
             }
 
             promotionStage.close(); // close the window at the end
@@ -445,18 +447,51 @@ public class GameApplication extends Application {
         bishopButton.setOnAction(actionEvent -> {
             // make the bishop
             pawn.setPromoteNumber(2);
+
+            if(colour.equals("White")){
+                Bishop dummyBishop = new Bishop("","White",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
+                view.getBoardGridPane().changeGraphic(model, dummyBishop, square);
+                pawn.move(square,model);
+            } else{
+                Bishop dummyBishop = new Bishop("","Black",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
+                view.getBoardGridPane().changeGraphic(model, dummyBishop, square);
+                pawn.move(square,model);
+            }
+
+
             promotionStage.close();
         });
 
         rookButton.setOnAction(actionEvent -> {
             // make the rook
             pawn.setPromoteNumber(1);
+
+            if(colour.equals("White")){
+                Rook dummyRook = new Rook("","White",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
+                view.getBoardGridPane().changeGraphic(model, dummyRook, square);
+                pawn.move(square,model);
+            } else{
+                Rook dummyRook = new Rook("","Black",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
+                view.getBoardGridPane().changeGraphic(model, dummyRook, square);
+                pawn.move(square,model);
+            }
+
             promotionStage.close();
         });
 
         queenButton.setOnAction(actionEvent ->{
             pawn.setPromoteNumber(0);
             // make the queen
+
+            if(colour.equals("White")){
+                Queen dummyQueen = new Queen("","White",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
+                view.getBoardGridPane().changeGraphic(model, dummyQueen, square);
+                pawn.move(square,model);
+            } else{
+                Queen dummyQueen = new Queen("","Black",new int[]{pawn.getCurrentSquare()[0],pawn.getCurrentSquare()[1]},new int[]{},new ArrayList<int[]>());
+                view.getBoardGridPane().changeGraphic(model, dummyQueen, square);
+                pawn.move(square,model);
+            }
 
 
             promotionStage.close();
