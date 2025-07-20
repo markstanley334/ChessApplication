@@ -63,39 +63,39 @@ public class BoardPane extends Pane {
 
         // as the images change depending on the specific  piece, each button needs its own imageview
 
-        whiteRookA = new Image("whiterook.png");
-        whiteRookH = new Image("whiterook.png");
-        whiteKnightB = new Image("whiteknight.png");
-        whiteKnightG = new Image("whiteknight.png");
-        whiteBishopC = new Image("whitebishop.png");
-        whiteBishopF = new Image("whitebishop.png");
-        whiteQueen = new Image("whitequeen.png");
-        whiteKing = new Image("whiteking.png");
-        whitePawnA = new Image("whitepawn.png");
-        whitePawnB = new Image("whitepawn.png");
-        whitePawnC = new Image("whitepawn.png");
-        whitePawnD = new Image("whitepawn.png");
-        whitePawnE = new Image("whitepawn.png");
-        whitePawnF = new Image("whitepawn.png");
-        whitePawnG = new Image("whitepawn.png");
-        whitePawnH = new Image("whitepawn.png");
+        whiteRookA = new Image("Images/whiterook.png");
+        whiteRookH = new Image("Images/whiterook.png");
+        whiteKnightB = new Image("Images/whiteknight.png");
+        whiteKnightG = new Image("Images/whiteknight.png");
+        whiteBishopC = new Image("Images/whitebishop.png");
+        whiteBishopF = new Image("Images/whitebishop.png");
+        whiteQueen = new Image("Images/whitequeen.png");
+        whiteKing = new Image("Images/whiteking.png");
+        whitePawnA = new Image("Images/whitepawn.png");
+        whitePawnB = new Image("Images/whitepawn.png");
+        whitePawnC = new Image("Images/whitepawn.png");
+        whitePawnD = new Image("Images/whitepawn.png");
+        whitePawnE = new Image("Images/whitepawn.png");
+        whitePawnF = new Image("Images/whitepawn.png");
+        whitePawnG = new Image("Images/whitepawn.png");
+        whitePawnH = new Image("Images/whitepawn.png");
 
-        blackRookA = new Image("blackrook.png");
-        blackRookH = new Image("blackrook.png");
-        blackKnightB = new Image("blackknight.png");
-        blackKnightG = new Image("blackknight.png");
-        blackBishopC = new Image("blackbishop.png");
-        blackBishopF = new Image("blackbishop.png");
-        blackQueen = new Image("blackqueen.png");
-        blackKing = new Image("blackking.png");
-        blackPawnA = new Image("blackpawn.png");
-        blackPawnB = new Image("blackpawn.png");
-        blackPawnC = new Image("blackpawn.png");
-        blackPawnD = new Image("blackpawn.png");
-        blackPawnE = new Image("blackpawn.png");
-        blackPawnF = new Image("blackpawn.png");
-        blackPawnG = new Image("blackpawn.png");
-        blackPawnH = new Image("blackpawn.png");
+        blackRookA = new Image("Images/blackrook.png");
+        blackRookH = new Image("Images/blackrook.png");
+        blackKnightB = new Image("Images/blackknight.png");
+        blackKnightG = new Image("Images/blackknight.png");
+        blackBishopC = new Image("Images/blackbishop.png");
+        blackBishopF = new Image("Images/blackbishop.png");
+        blackQueen = new Image("Images/blackqueen.png");
+        blackKing = new Image("Images/blackking.png");
+        blackPawnA = new Image("Images/blackpawn.png");
+        blackPawnB = new Image("Images/blackpawn.png");
+        blackPawnC = new Image("Images/blackpawn.png");
+        blackPawnD = new Image("Images/blackpawn.png");
+        blackPawnE = new Image("Images/blackpawn.png");
+        blackPawnF = new Image("Images/blackpawn.png");
+        blackPawnG = new Image("Images/blackpawn.png");
+        blackPawnH = new Image("Images/blackpawn.png");
 
 
         Color lightgray = Color.LIGHTGRAY;

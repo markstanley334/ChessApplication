@@ -126,7 +126,7 @@ Knight - Done
 Pawn - Not done
 -> piece in front of pawn can still move 2 (FIXED)
 -> en passant needs to remove imageview (FIXED)
--> promotion needs to create new imageview (IN PROGRESS)
+-> promotion needs to create new imageview (FIXED)
 -> after castling turn error (FIXED)
 
 

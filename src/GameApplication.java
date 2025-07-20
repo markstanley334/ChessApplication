@@ -39,8 +39,6 @@ public class GameApplication extends Application {
         GameView view = new GameView();
         aStartingPane.getChildren().add(view);
 
-        // view.update(model,false);
-
         checkmate = false;
 
         buttons = view.getBoardGridPane().getToggleButtons();
@@ -56,14 +54,6 @@ public class GameApplication extends Application {
 
         primaryStage.setTitle("Chess Application");
 
-        view.getFbButtonPane().getForwardsButton().setOnAction(event -> {
-            System.out.println("The forwards button is working");
-        });
-
-        view.getFbButtonPane().getBackwardsButton().setOnAction(actionEvent -> {
-            System.out.println("The backwards button is working");
-        });
-
         view.getFbButtonPane().getResetButton().setOnAction(actionEvent -> {
                 System.out.println("The reset button is working");
                 model = new Game();
@@ -71,10 +61,6 @@ public class GameApplication extends Application {
                 buttons = view.getBoardGridPane().getToggleButtons();
                 circles = view.getBoardGridPane().getCircles();
 
-        });
-
-        view.getFbButtonPane().getFlipBoardButton().setOnAction(actionEvent -> {
-            System.out.println("The flip board button is working");
         });
 
 
@@ -108,6 +94,7 @@ public class GameApplication extends Application {
                         stalemate = true;
 
                         if(model.getMoveNumber() != 0) {
+                                // model.printBoard();
                                 indexCount = 0;
                                 kingIndex = -1;
                                 for(Piece p: model.getWhitePieces()){ // refresh white pieces
@@ -228,6 +215,7 @@ public class GameApplication extends Application {
 
                                             model.getWhitePieces().get(kingIndex).refresh(model); // refresh king
 
+                                            model.addBoardCopy();
                                             model.turn = "Black";
 
                                         }
@@ -352,6 +340,7 @@ public class GameApplication extends Application {
                                             model.getBlackPieces().get(kingIndex).refresh(model); // refresh king
 
                                             model.addMoveNumber(1); // new move
+                                            model.addBoardCopy();
                                             model.turn = "White";
 
                                         }
@@ -366,7 +355,7 @@ public class GameApplication extends Application {
         }
 
         primaryStage.setResizable(false);
-        primaryStage.setScene(new Scene(aStartingPane,1350,850));
+        primaryStage.setScene(new Scene(aStartingPane,1050,850));
         primaryStage.show();
     }
 
@@ -391,10 +380,10 @@ public class GameApplication extends Application {
 
         if(colour.equals("White")){
             // make the images
-            Image whiteRook = new Image("whiterook.png");
-            Image whiteKnight = new Image("whiteknight.png");
-            Image whiteBishop = new Image("whitebishop.png");
-            Image whiteQueen = new Image("whitequeen.png");
+            Image whiteRook = new Image("Images/whiterook.png");
+            Image whiteKnight = new Image("Images/whiteknight.png");
+            Image whiteBishop = new Image("Images/whitebishop.png");
+            Image whiteQueen = new Image("Images/whitequeen.png");
 
             ImageView imageViewRook = new ImageView(whiteRook);
             rookButton.setGraphic(imageViewRook);
@@ -409,10 +398,10 @@ public class GameApplication extends Application {
             queenButton.setGraphic(imageViewQueen);
 
         } else{
-            Image blackRook = new Image("blackrook.png");
-            Image blackKnight = new Image("blackknight.png");
-            Image blackBishop = new Image("blackbishop.png");
-            Image blackQueen = new Image("blackqueen.png");
+            Image blackRook = new Image("Images/blackrook.png");
+            Image blackKnight = new Image("Images/blackknight.png");
+            Image blackBishop = new Image("Images/blackbishop.png");
+            Image blackQueen = new Image("Images/blackqueen.png");
 
             ImageView imageViewRook = new ImageView(blackRook);
             rookButton.setGraphic(imageViewRook);

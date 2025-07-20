@@ -1,11 +1,20 @@
 # Project: JavaFX Chess Application
 
-## Description: A chess program made outside of school that allows the user to play games of chess with themself and view the moves.
+## Description: A chess program that allows the user to play games of chess with themself.
 
-
+I made this project outside of school after learning some javaFX in a course I took. I was interested in applying some of my skills into a project I was interested in. 
 When development is complete, I will add a downloadable program available for anyone to try. 
 
-To see the application currently, see the video or set up the project yourself:
+To see the application currently, see the images or set up the project yourself (instructions below)
+
+Features: The game includes most chess rules, including captures, en passant, and piece promotion. A restart game button was added for convenience. 
+More could be added at a later date. 
+
+# Chess Board:
+![Chess Board](src/Images/ChessImage1.png)
+
+# Promotion Window:
+![Chess Promotion Window](src/Images/ChessImage2.png)
 
 # Steps to set up the project:
 

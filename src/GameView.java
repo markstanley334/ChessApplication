@@ -39,15 +39,15 @@ public class GameView extends Pane {
 
         getChildren().addAll(label1,hbox);
 
-        setPrefSize(1350,850);
+
     }
     public void update(Game model, boolean reset){
             if(reset){
                 System.out.println("resetting board");
                 BoardPane newPane = new BoardPane();
                 hbox.getChildren().remove(boardGridPane);
-                hbox.getChildren().addAll(newPane);
-                getChildren().addAll(hbox);
+                hbox.getChildren().addFirst(newPane);
+                getChildren().add(hbox);
             } else{
 
             }

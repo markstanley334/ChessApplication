@@ -309,7 +309,8 @@ public class Game {
     public boolean whitePawnJustMovedTwo(int[] square){ // this function is for the en passant rule
         if(Board[square[0]][square[1]] instanceof Pawn && Board[square[0]][square[1]].colour.equals("White")){ // if the square is a pawn & the pawn is white
             // the previous square was a starting square
-            return Arrays.equals(Board[square[0]][square[1]].previousSquare, new int[]{6, square[1]});
+
+            return (Arrays.equals(Board[square[0]][square[1]].previousSquare, new int[]{6, square[1]})) && boardCopies.get(2*moveNumber)[6][square[1]].colour.equals("White") && boardCopies.get(moveNumber)[6][square[1]] instanceof Pawn;
             }
         return false;
     }
